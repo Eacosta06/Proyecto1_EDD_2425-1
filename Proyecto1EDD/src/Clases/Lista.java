@@ -7,6 +7,7 @@ package Clases;
 /**
  *
  * @author esteacosta
+ * Clase lista que se utiliza para crear las líneas
  */
 public class Lista {
     

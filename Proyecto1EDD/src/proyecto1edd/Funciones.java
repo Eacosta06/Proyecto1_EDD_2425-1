@@ -2,14 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Clases;
+package proyecto1edd;
 
 /**
  *
  * @author esteacosta
- * 
- * Clase Nodo para los grafos
+ * Clase funciones donde se encuentran todas las funciones utilizadas por el programa
+ * que no son primitivas de la clase lista ni métodos de la clases parada.
  */
-public class Nodo {
+public class Funciones {
     
 }

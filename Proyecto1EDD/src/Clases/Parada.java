@@ -7,9 +7,8 @@ package Clases;
 /**
  *
  * @author esteacosta
- * 
- * Clase Nodo para los grafos
+ * Clase Parada
  */
-public class Nodo {
+public class Parada {
     
 }
