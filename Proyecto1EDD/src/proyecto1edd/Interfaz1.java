@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package proyecto1edd;
+import org.graphstream.graph.*;
+import org.graphstream.graph.implementations.SingleGraph;
 
 /**
  *
@@ -39,6 +41,7 @@ public class Interfaz1 extends javax.swing.JFrame {
         GuardarSucursal = new javax.swing.JButton();
         GuardarLinea = new javax.swing.JButton();
         GuardarT = new javax.swing.JButton();
+        VerCobertura = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,7 +58,7 @@ public class Interfaz1 extends javax.swing.JFrame {
                 MostrarGrafoActionPerformed(evt);
             }
         });
-        jPanel1.add(MostrarGrafo, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 320, -1, -1));
+        jPanel1.add(MostrarGrafo, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 320, 130, -1));
 
         NuevoValorT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,6 +109,15 @@ public class Interfaz1 extends javax.swing.JFrame {
         GuardarT.setText("Guardar \"T\"");
         jPanel1.add(GuardarT, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, -1, -1));
 
+        VerCobertura.setFont(new java.awt.Font("Sylfaen", 0, 14)); // NOI18N
+        VerCobertura.setText("Ver Cobertura");
+        VerCobertura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VerCoberturaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(VerCobertura, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 250, 130, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -121,7 +133,33 @@ public class Interfaz1 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void MostrarGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarGrafoActionPerformed
-        // TODO add your handling code here:
+// Especificar que se usará Swing como interfaz de usuario
+        System.setProperty("org.graphstream.ui", "swing");
+
+        Graph graph = new SingleGraph("Cobertura de Sucursales");
+        
+
+        // Agregar nodos y asignarles un nombre/etiqueta
+        Node nodeA = graph.addNode("A");
+        nodeA.setAttribute("ui.label", "Nodo A");
+
+        Node nodeB = graph.addNode("B");
+        nodeB.setAttribute("ui.label", "Nodo B");
+
+        Node nodeC = graph.addNode("C");
+        nodeC.setAttribute("ui.label", "Nodo C");
+
+        // Agregar aristas (edges) entre los nodos y asignarles etiquetas
+        Edge edgeAB = graph.addEdge("AB", "A", "B");
+
+        Edge edgeBC = graph.addEdge("BC", "B", "C");
+
+        Edge edgeCA = graph.addEdge("CA", "C", "A");
+
+        // Mostrar el grafo con etiquetas
+        graph.display();
+        
+        
     }//GEN-LAST:event_MostrarGrafoActionPerformed
 
     private void NuevoValorTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoValorTActionPerformed
@@ -135,6 +173,10 @@ public class Interfaz1 extends javax.swing.JFrame {
     private void GuardarSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarSucursalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_GuardarSucursalActionPerformed
+
+    private void VerCoberturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerCoberturaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_VerCoberturaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,6 +226,7 @@ public class Interfaz1 extends javax.swing.JFrame {
     private javax.swing.JTextField NuevoValorT;
     private javax.swing.JTextField SucursalNueva;
     private javax.swing.JLabel Titulo;
+    private javax.swing.JButton VerCobertura;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
