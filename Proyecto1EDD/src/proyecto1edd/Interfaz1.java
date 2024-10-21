@@ -11,12 +11,14 @@ import org.graphstream.graph.implementations.SingleGraph;
  * @author maria
  */
 public class Interfaz1 extends javax.swing.JFrame {
+    int t;
 
     /**
      * Creates new form Interfaz1
      */
     public Interfaz1() {
         initComponents();
+        t = 0;
     }
 
     /**
