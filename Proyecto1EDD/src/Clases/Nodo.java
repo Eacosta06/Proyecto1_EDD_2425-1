@@ -10,11 +10,20 @@ package Clases;
  * 
  * Clase Nodo para los grafos
  */
+/**
+ *
+ * @author Carlo Carpentieri
+ * @param <T> 
+ */
 public class Nodo <T> {
     protected T data;
     protected Nodo <T> pnext;
 
-    //Constructor
+    /**
+    * Constructor para la clase nodo
+    * @author Carlo Carpentieri
+    * @param <T> Es un parametro de tipo genérico, sirve para crear clases, interfaces y métodos
+    */
     Nodo (T elem){
     data=elem;
     pnext=null;
