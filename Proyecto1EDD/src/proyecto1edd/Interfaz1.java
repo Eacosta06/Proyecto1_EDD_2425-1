@@ -47,7 +47,7 @@ public class Interfaz1 extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Titulo.setFont(new java.awt.Font("Sylfaen", 1, 36)); // NOI18N
+        Titulo.setFont(new java.awt.Font("Sylfaen", 1, 37)); // NOI18N
         Titulo.setText("Cobertura de sucursales");
         jPanel1.add(Titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, 410, -1));
 
