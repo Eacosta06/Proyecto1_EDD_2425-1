@@ -26,10 +26,19 @@ public class Lista <T> {
         this.pFirst = null;
     }
     
+    /**
+    * Metodo para indicar si esta vacio o no
+    * @author Carlo Carpentieri
+    */
     public boolean esVacio(){
     return pFirst==null;
     }
     
+    /**
+    * Metodo para insertar un nuevo nodo en la lista
+    * @author Carlo Carpentieri
+    * @param x es el dato de tipo generico a insertar, y pValor es de tipo apuntador
+    */
     public void insertar(T x, Nodo <T> pValor){
     Nodo <T> pNew=new Nodo <>(x);
     if (esVacio()){
