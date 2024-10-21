@@ -5,7 +5,7 @@
 package proyecto1edd;
 
 import Clases.Lista;
-import java.io.File;
+import java.io.*;
 import javax.swing.JFileChooser;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.SingleGraph;
@@ -18,6 +18,7 @@ import org.graphstream.graph.implementations.SingleGraph;
 public class Principal extends javax.swing.JFrame {
     Graph grafo;
     Lista lineas;
+    Inicializar iniciar;
 
     /**
      * Creates new form Principal
@@ -25,7 +26,7 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         grafo = new SingleGraph("Cobertura de Sucursales");
-        lineas = new Lista("Linea principal");
+        iniciar = new Inicializar();
     }
 
     /**
@@ -38,7 +39,6 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
@@ -49,13 +49,6 @@ public class Principal extends javax.swing.JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Exportar Archivo");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
             }
         });
 
@@ -74,9 +67,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(13, Short.MAX_VALUE))
@@ -89,10 +80,9 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
-                        .addComponent(jButton2)))
+                        .addComponent(jButton1)))
                 .addContainerGap(140, Short.MAX_VALUE))
         );
 
@@ -102,15 +92,42 @@ public class Principal extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         JFileChooser archivo = new JFileChooser();
+        try {
+            
+            //Se obtiene el archivo a través de JFileChooser
             archivo.showOpenDialog(this);
             File abierto = archivo.getSelectedFile();
+            
+            //Se comprueba que el archivo no esté vacío
+            if (abierto != null){
+                //Se abre el archivo
+                FileReader archivos = new FileReader(abierto);
+                BufferedReader leer = new BufferedReader(archivos);
+                String aux;
+                String jsonString = "";
+                //Se iteran las líneas del archivo para obtener su contenido
+                while ((aux=leer.readLine()) != null){
+                    jsonString += aux+ "\n";
+                }
+                //Se cierra el archivo
+                leer.close();
+                try {
+                    iniciar.Iniciar(jsonString, grafo, lineas);
+                } catch (Exception e) {
+                    
+                }
+                
+            } else {
+                // Mensaje de error cuando el archivo está vacío
+                this.jTextArea1.setText("El archivo está vacío.");
+            }
+        } catch (IOException ex) {
+            // Mensaje de error si el archivo es inválido o ocurre un error en el proceso
+            this.jTextArea1.setText("El archivo seleccionado no pudo ser procesado.");
+        }
         // Aquí falta un try catch que no añado para que no de error.
             
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,7 +166,6 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
