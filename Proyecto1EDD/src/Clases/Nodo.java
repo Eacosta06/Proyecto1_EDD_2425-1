@@ -10,6 +10,13 @@ package Clases;
  * 
  * Clase Nodo para los grafos
  */
-public class Nodo {
-    
+public class Nodo <T> {
+    protected T data;
+    protected Nodo <T> pnext;
+
+    //Constructor
+    Nodo (T elem){
+    data=elem;
+    pnext=null;
+    }
 }
