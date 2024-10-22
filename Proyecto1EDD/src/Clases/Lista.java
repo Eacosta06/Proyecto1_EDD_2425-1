@@ -12,13 +12,13 @@ package Clases;
 public class Lista {
     private Nodo pFirst;
     private Nodo pLast;
-    private int tamaño;
+    private int iN;
     private String nombre;
 
     public Lista(String nombre) {
         this.pFirst = null;
         this.pLast = null;
-        this.tamaño = 0;
+        this.iN = 0;
         this.nombre = nombre;
     }
 
@@ -31,12 +31,27 @@ public class Lista {
     }
 
     public int tamaño() {
-        return tamaño;
+        return iN;
+    }
+    
+    public boolean esVacia(){
+        return pFirst==null;
     }
     
     public void agregar(Nodo nuevo){
-        pLast.setpNext(nuevo);
-        nuevo.setpPrev(pLast);
-        pLast = nuevo;
+        if (!esVacia()){
+            pLast.setpNext(nuevo);
+            nuevo.setpPrev(pLast);
+            pLast = nuevo;
+        } else {
+            pFirst = pLast = nuevo;
+        }
+        iN++;
+    }
+    
+    public void Eliminar(Nodo nodo){
+        if (!esVacia()){
+            
+        }
     }
 }
