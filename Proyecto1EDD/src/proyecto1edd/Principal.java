@@ -111,6 +111,10 @@ public class Principal extends javax.swing.JFrame {
                 }
                 //Se cierra el archivo
                 leer.close();
+                Interfaz1 pantalla = new Interfaz1();
+                pantalla.setVisible(true);
+                this.setVisible(false);
+                
                 try {
                     iniciar.Iniciar(jsonString, grafo, lineas);
                 } catch (Exception e) {

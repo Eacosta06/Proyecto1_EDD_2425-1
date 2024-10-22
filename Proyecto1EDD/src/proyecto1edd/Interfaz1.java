@@ -109,6 +109,11 @@ public class Interfaz1 extends javax.swing.JFrame {
 
         GuardarT.setFont(new java.awt.Font("Sylfaen", 0, 14)); // NOI18N
         GuardarT.setText("Guardar \"T\"");
+        GuardarT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarTActionPerformed(evt);
+            }
+        });
         jPanel1.add(GuardarT, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, -1, -1));
 
         VerCobertura.setFont(new java.awt.Font("Sylfaen", 0, 14)); // NOI18N
@@ -179,6 +184,15 @@ public class Interfaz1 extends javax.swing.JFrame {
     private void VerCoberturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerCoberturaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_VerCoberturaActionPerformed
+
+    private void GuardarTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarTActionPerformed
+        System.out.println(t);
+        String ValorInicial = NuevoValorT.getText();
+        t = Integer.parseInt(ValorInicial);
+        System.out.println(t);
+        //Falta actualizar en la estructura de datos
+        
+    }//GEN-LAST:event_GuardarTActionPerformed
 
     /**
      * @param args the command line arguments
