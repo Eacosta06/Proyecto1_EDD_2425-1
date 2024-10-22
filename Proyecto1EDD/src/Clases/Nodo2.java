@@ -35,5 +35,9 @@ public class Nodo2 {
         this.data = data;
     }
     
+    public Nodo leer() {
+        return this.data;
+    }
+    
     
 }

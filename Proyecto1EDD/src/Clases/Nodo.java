@@ -74,4 +74,8 @@ public class Nodo {
     public boolean Interseccion(){
         return this.Interseccion;
     }
+    
+    public Parada leer() {
+        return this.parada;
+    }
 }
