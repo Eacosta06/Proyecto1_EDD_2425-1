@@ -4,7 +4,7 @@
  */
 package proyecto1edd;
 
-import Clases.Lista;
+import Clases.*;
 import java.io.*;
 import javax.swing.JFileChooser;
 import org.graphstream.graph.*;
@@ -17,7 +17,7 @@ import org.graphstream.graph.implementations.SingleGraph;
  */
 public class Principal extends javax.swing.JFrame {
     Graph grafo;
-    Lista lineas;
+    Lista2 lineas_metro;
     Inicializar iniciar;
 
     /**
@@ -112,7 +112,7 @@ public class Principal extends javax.swing.JFrame {
                 //Se cierra el archivo
                 leer.close();
                 try {
-                    iniciar.Iniciar(jsonString, grafo, lineas);
+                    this.lineas_metro = iniciar.Iniciar(jsonString, grafo);
                     this.jTextArea1.setText("Elementos inicializados de manera exitosa.");
                 } catch (Exception e) {
                     this.jTextArea1.setText("Ha ocurrido un error al procesar el archivo.");

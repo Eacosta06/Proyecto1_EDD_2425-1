@@ -16,14 +16,14 @@ public class Nodo {
     private Nodo pPrev;
     private Nodo pLNext;
     private Nodo pLPrev;
+    private Nodo pInterseccion;
     private boolean Interseccion;
 
     public Nodo(Parada parada) {
         this.parada = parada;
         this.pNext = null;
         this.pPrev = null;
-        this.pLNext = null;
-        this.pLPrev = null;
+        this.pInterseccion = null;
         this.Interseccion = false;
     }
 
@@ -42,21 +42,13 @@ public class Nodo {
     public void setpPrev(Nodo pPrev) {
         this.pPrev = pPrev;
     }
-
-    public Nodo getpLNext() {
-        return pLNext;
+    
+    public Nodo getpInterseccion() {
+        return pInterseccion;
     }
 
-    public void setpLNext(Nodo pLNext) {
-        this.pLNext = pLNext;
-    }
-
-    public Nodo getpLPrev() {
-        return pLPrev;
-    }
-
-    public void setpLPrev(Nodo pLPrev) {
-        this.pLPrev = pLPrev;
+    public void setpInterseccion(Nodo pInterseccion) {
+        this.pInterseccion = pInterseccion;
     }
     
     public Parada Parada(){
@@ -74,6 +66,5 @@ public class Nodo {
     public boolean Interseccion(){
         return this.Interseccion;
     }
-    
     
 }

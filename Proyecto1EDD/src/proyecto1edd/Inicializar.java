@@ -18,9 +18,11 @@ import java.util.Set;
 public class Inicializar {
     //Se crea una lista temporal donde se guardarán las conexiones entre líneas
     Lista2 conexiones;
+    Lista2 lineas_metro;
 
     public Inicializar() {
         conexiones = new Lista2();
+        lineas_metro = new Lista2();
     }
     
     /**
@@ -50,13 +52,15 @@ public class Inicializar {
     }
     
     public void Conectar_Paradas(Nodo p1, Nodo p2){
-        p1.setpLNext(p2);
-        p2.setpLPrev(p1);
+        p1.setpInterseccion(p2);
+        p2.setpInterseccion(p1);
         p1.cambiarInterseccion();
         p2.cambiarInterseccion();
     }
     
-    public void Iniciar(String jsonString, Graph grafo, Lista lineas){
+    public Lista2 Iniciar(String jsonString, Graph grafo){
+        
+        Nodo2 line_metro;
         
         //Se utiliza la libreria Gson
         Gson gson = new Gson();
@@ -71,7 +75,7 @@ public class Inicializar {
         //Se itera a través de la lista de llaves
         for (String llave : llaves){
             // Se crea  la lista lineas con el nombre de la red de metro
-            lineas = new Lista(llave);
+            Lista lineas = new Lista(llave);
             
             JsonElement l_lineas = iterable.get(llave);
             JsonArray lista_lineas = l_lineas.getAsJsonArray();
@@ -90,7 +94,7 @@ public class Inicializar {
                     JsonArray lista_paradas = l_paradas.getAsJsonArray();
                     
                     for (int j = 0; j < lista_paradas.size(); j++){
-                        Nodo nParada;
+                        Nodo nParada = null;
                         if (lista_paradas.get(j).isJsonObject()){
                             
                             JsonObject Interseccion = lista_paradas.get(j).getAsJsonObject();
@@ -102,6 +106,8 @@ public class Inicializar {
                                     
                                     if (connect.getpNext() == null & connect.getpPrev() == null) {
                                         Llinea.agregar(connect);
+                                        connect.Parada().CambiarLinea(linea);
+                                        nParada = connect;
                                     } else {
                                         Llinea.agregar(connect);
                                         connect.Parada().CambiarLinea(linea);
@@ -167,9 +173,18 @@ public class Inicializar {
                                 lineas.agregar(nParada);
                             }
                         }
+                        
+                        if (j ==0 ){
+                            line_metro = new Nodo2(nParada);
+                            this.lineas_metro.agregar(line_metro);
+                        }
                     }
+                    
                 }
+                 
             }
+            
         }
+        return lineas_metro;
     }
 }
