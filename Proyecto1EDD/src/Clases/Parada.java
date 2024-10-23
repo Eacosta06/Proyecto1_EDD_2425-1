@@ -6,7 +6,7 @@ package Clases;
 
 /**
  *
- * @author esteacosta
+ * @author esteacosta y carluchocp
  * Clase Parada
  */
 public class Parada {
@@ -41,6 +41,12 @@ public class Parada {
     public boolean Sucursal(){
         return Sucursal;
     }
+    
+    /**
+    *
+    * @author carluchocp
+    * getters and setters
+    */
 
     public String getNombre() {
         return Nombre;
