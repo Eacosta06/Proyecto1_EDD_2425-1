@@ -3,14 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package proyecto1edd;
-
-<<<<<<< HEAD
-import Clases.Lista;
-import Clases.Nodo;
-import Clases.Parada;
-=======
 import Clases.*;
->>>>>>> develop
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.SingleGraph;
 import com.google.gson.*;
@@ -77,13 +70,8 @@ public class Inicializar {
         
         //Se hace una lista de llaves
         Set<String> llaves = iterable.keySet();
-        
-<<<<<<< HEAD
-        //
-        Lista paradas = new Lista();
-=======
+
         //Se itera a través de la lista de llaves
->>>>>>> develop
         for (String llave : llaves){
             // Se crea  la lista lineas con el nombre de la red de metro
             Lista lineas = new Lista(llave);
@@ -196,25 +184,6 @@ public class Inicializar {
             }
             
         }
-<<<<<<< HEAD
-
-        /**
-        *
-        * @author carluchocp
-        * si las paradas estan vacias agregar uno, y si no estan vacias crea uno y lo agrega con los demas
-        * crear los nodos en el grafo sin intersecciones y duplicados. 
-        */
-//        if (paradas.esVacia()) {
-//            Parada parada = new Parada("nombre", "linea");
-//            paradas.agregar(new Nodo(parada)); 
-//        } else {
-//            Parada parada = new Parada("nombre", "linea");
-//            paradas.getpLast().Parada().getParadasVecinas().agregar(new Nodo(parada));
-//            parada.getParadasVecinas().agregar(paradas.getpLast());
-//            paradas.agregar(new Nodo(parada));
-//        }
-=======
         return lineas_metro;
->>>>>>> develop
     }
 }
