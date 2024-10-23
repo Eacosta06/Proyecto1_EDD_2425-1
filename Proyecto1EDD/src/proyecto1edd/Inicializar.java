@@ -66,16 +66,21 @@ public class Inicializar {
                 }
             }
         }
-        //si las paradas estan vacias agregar uno, y si no estan vacias crea uno y lo agrega con los demas
-        //crear los nodos en el grafo sin intersecciones y duplicados
-        if (paradas.esVacia()) {
-            Parada parada = new Parada("nombre", "linea");
-            paradas.agregar(new Nodo(parada)); 
-        } else {
-            Parada parada = new Parada("nombre", "linea");
-            paradas.getpLast().Parada().getParadasVecinas().agregar(new Nodo(parada));
-            parada.getParadasVecinas().agregar(paradas.getpLast());
-            paradas.agregar(new Nodo(parada));
-        }
+
+        /**
+        *
+        * @author carluchocp
+        * si las paradas estan vacias agregar uno, y si no estan vacias crea uno y lo agrega con los demas
+        * crear los nodos en el grafo sin intersecciones y duplicados. 
+        */
+//        if (paradas.esVacia()) {
+//            Parada parada = new Parada("nombre", "linea");
+//            paradas.agregar(new Nodo(parada)); 
+//        } else {
+//            Parada parada = new Parada("nombre", "linea");
+//            paradas.getpLast().Parada().getParadasVecinas().agregar(new Nodo(parada));
+//            parada.getParadasVecinas().agregar(paradas.getpLast());
+//            paradas.agregar(new Nodo(parada));
+//        }
     }
 }
