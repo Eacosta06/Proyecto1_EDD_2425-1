@@ -113,8 +113,9 @@ public class Principal extends javax.swing.JFrame {
                 leer.close();
                 try {
                     iniciar.Iniciar(jsonString, grafo, lineas);
+                    this.jTextArea1.setText("Elementos inicializados de manera exitosa.");
                 } catch (Exception e) {
-                    
+                    this.jTextArea1.setText("Ha ocurrido un error al procesar el archivo.");
                 }
                 
             } else {
