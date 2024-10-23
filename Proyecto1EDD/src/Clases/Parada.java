@@ -10,16 +10,14 @@ package Clases;
  * Clase Parada
  */
 public class Parada {
-    String Nombre;
-    String Linea;
-    Lista ParadasVecinas;
-    boolean Sucursal;
+    private String Nombre;
+    private String Linea;
+    private boolean Sucursal;
 
-    public Parada(String Nombre, String linea) {
+    public Parada(String Nombre, String Linea) {
         this.Nombre = Nombre;
+        this.Linea = Linea;
         this.Sucursal = false;
-        this.ParadasVecinas = new Lista();
-        this.Linea = linea;
     }
     
     // Convierte Sucursal a True
@@ -32,9 +30,17 @@ public class Parada {
         this.Sucursal = false;
     }
     
+    public void CambiarLinea(String line){
+        this.Linea = line;
+    }
+    
     //Retorna el Nombre de la parada
     public String Nombre(){
         return Nombre;
+    }
+    
+    public String Linea(){
+        return Linea;
     }
     
     // Retorna el valor de Sucursal
@@ -62,14 +68,6 @@ public class Parada {
 
     public void setLinea(String Linea) {
         this.Linea = Linea;
-    }
-
-    public Lista getParadasVecinas() {
-        return ParadasVecinas;
-    }
-
-    public void setParadasVecinas(Lista ParadasVecinas) {
-        this.ParadasVecinas = ParadasVecinas;
     }
 
     public boolean isSucursal() {
