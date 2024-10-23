@@ -5,6 +5,8 @@
 package proyecto1edd;
 
 import Clases.Lista;
+import Clases.Nodo;
+import Clases.Parada;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.SingleGraph;
 import com.google.gson.*;
@@ -38,6 +40,7 @@ public class Inicializar {
         Set<String> llaves = iterable.keySet();
         
         //
+        Lista paradas = new Lista();
         for (String llave : llaves){
             // Se crea  la lista lineas con el nombre de la red de metro
             lineas = new Lista(llave);
@@ -62,6 +65,17 @@ public class Inicializar {
                     }
                 }
             }
+        }
+        //si las paradas estan vacias agregar uno, y si no estan vacias crea uno y lo agrega con los demas
+        //crear los nodos en el grafo sin intersecciones y duplicados
+        if (paradas.esVacia()) {
+            Parada parada = new Parada("nombre", "linea");
+            paradas.agregar(new Nodo(parada)); 
+        } else {
+            Parada parada = new Parada("nombre", "linea");
+            paradas.getpLast().Parada().getParadasVecinas().agregar(new Nodo(parada));
+            parada.getParadasVecinas().agregar(paradas.getpLast());
+            paradas.agregar(new Nodo(parada));
         }
     }
 }

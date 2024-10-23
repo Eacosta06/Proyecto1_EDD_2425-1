@@ -11,11 +11,15 @@ package Clases;
  */
 public class Parada {
     String Nombre;
+    String Linea;
+    Lista ParadasVecinas;
     boolean Sucursal;
 
-    public Parada(String Nombre) {
+    public Parada(String Nombre, String linea) {
         this.Nombre = Nombre;
         this.Sucursal = false;
+        this.ParadasVecinas = new Lista();
+        this.Linea = linea;
     }
     
     // Convierte Sucursal a True
@@ -37,6 +41,37 @@ public class Parada {
     public boolean Sucursal(){
         return Sucursal;
     }
-    
+
+    public String getNombre() {
+        return Nombre;
+    }
+
+    public void setNombre(String Nombre) {
+        this.Nombre = Nombre;
+    }
+
+    public String getLinea() {
+        return Linea;
+    }
+
+    public void setLinea(String Linea) {
+        this.Linea = Linea;
+    }
+
+    public Lista getParadasVecinas() {
+        return ParadasVecinas;
+    }
+
+    public void setParadasVecinas(Lista ParadasVecinas) {
+        this.ParadasVecinas = ParadasVecinas;
+    }
+
+    public boolean isSucursal() {
+        return Sucursal;
+    }
+
+    public void setSucursal(boolean Sucursal) {
+        this.Sucursal = Sucursal;
+    } 
     
 }

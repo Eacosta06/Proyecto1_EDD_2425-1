@@ -13,13 +13,11 @@ public class Lista {
     private Nodo pFirst;
     private Nodo pLast;
     private int iN;
-    private String nombre;
 
-    public Lista(String nombre) {
+    public Lista() {
         this.pFirst = null;
         this.pLast = null;
         this.iN = 0;
-        this.nombre = nombre;
     }
 
     public Nodo Primero() {
@@ -54,4 +52,35 @@ public class Lista {
             
         }
     }
+    
+    /**
+    *
+    * @author carluchocp
+    * getters and setters
+    */
+    
+    public Nodo getpLast() {
+        return pLast;
+    }
+
+    public void setpLast(Nodo pLast) {
+        this.pLast = pLast;
+    }
+
+    public Nodo getpFirst() {
+        return pFirst;
+    }
+
+    public void setpFirst(Nodo pFirst) {
+        this.pFirst = pFirst;
+    }
+
+    public int getiN() {
+        return iN;
+    }
+
+    public void setiN(int iN) {
+        this.iN = iN;
+    }
+    
 }
