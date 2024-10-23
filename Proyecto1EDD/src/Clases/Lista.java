@@ -13,11 +13,13 @@ public class Lista {
     private Nodo pFirst;
     private Nodo pLast;
     private int iN;
+    private String nombre;
 
-    public Lista() {
+    public Lista(String nombre) {
         this.pFirst = null;
         this.pLast = null;
         this.iN = 0;
+        this.nombre = nombre;
     }
 
     public Nodo Primero() {
