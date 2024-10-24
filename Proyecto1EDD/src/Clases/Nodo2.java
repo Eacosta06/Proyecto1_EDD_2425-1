@@ -11,7 +11,7 @@ package Clases;
  * los pFirst de cada línea de metro.
  */
 public class Nodo2 {
-    private Nodo pNext;
+    private Nodo2 pNext;
     private Nodo data;
 
     public Nodo2(Nodo data) {
@@ -19,11 +19,11 @@ public class Nodo2 {
         this.pNext = null;
     }
 
-    public Nodo getpNext() {
+    public Nodo2 getpNext() {
         return pNext;
     }
 
-    public void setpNext(Nodo pNext) {
+    public void setpNext(Nodo2 pNext) {
         this.pNext = pNext;
     }
 
@@ -34,6 +34,9 @@ public class Nodo2 {
     public void setData(Nodo data) {
         this.data = data;
     }
+
+    
+    
     
     
 }

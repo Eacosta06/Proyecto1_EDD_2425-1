@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/maria/Documents/Estructuras%20de%20Datos/Netbeans/Proyecto1_EDD_2425-1/Proyecto1EDD/src/Clases/Lista.java</file>
             <file>file:/C:/Users/maria/Documents/Estructuras%20de%20Datos/Netbeans/Proyecto1_EDD_2425-1/Proyecto1EDD/src/proyecto1edd/Funciones.java</file>
             <file>file:/C:/Users/maria/Documents/Estructuras%20de%20Datos/Netbeans/Proyecto1_EDD_2425-1/Proyecto1EDD/src/Clases/Nodo2.java</file>
@@ -12,6 +13,10 @@
             <file>file:/C:/Users/maria/Documents/Estructuras%20de%20Datos/Netbeans/Proyecto1_EDD_2425-1/Proyecto1EDD/src/proyecto1edd/Proyecto1EDD.java</file>
             <file>file:/C:/Users/maria/Documents/Estructuras%20de%20Datos/Netbeans/Proyecto1_EDD_2425-1/Proyecto1EDD/src/Clases/Parada.java</file>
             <file>file:/C:/Users/maria/Documents/Estructuras%20de%20Datos/Netbeans/Proyecto1_EDD_2425-1/Proyecto1EDD/src/proyecto1edd/Interfaz1.java</file>
+=======
+            <file>file:/Users/esteacosta/Documents/Unimet/Clases/IV%20Trimestre/Estructura%20de%20Datos/Proyectos/Proyecto1/Proyecto1EDD/src/proyecto1edd/Principal.java</file>
+            <file>file:/Users/esteacosta/Documents/Unimet/Clases/IV%20Trimestre/Estructura%20de%20Datos/Proyectos/Proyecto1/Proyecto1EDD/src/proyecto1edd/Inicializar.java</file>
+>>>>>>> 5c678e981910577fbc8d75447a0a9b6e184535e9
         </group>
     </open-files>
 </project-private>
