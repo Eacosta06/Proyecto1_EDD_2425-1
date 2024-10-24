@@ -14,12 +14,14 @@ public class Lista {
     private Nodo pLast;
     private int iN;
     private String nombre;
+    private int valorT;
 
     public Lista(String nombre) {
         this.pFirst = null;
         this.pLast = null;
         this.iN = 0;
         this.nombre = nombre;
+        this.valorT = 0;
     }
 
     public Nodo Primero() {
@@ -54,6 +56,7 @@ public class Lista {
             
         }
     }
+    
     
     
     
