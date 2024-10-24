@@ -7,8 +7,10 @@ package proyecto1edd;
 import Clases.*;
 import java.io.*;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import org.graphstream.graph.*;
-import org.graphstream.graph.implementations.SingleGraph;
+import org.graphstream.graph.implementations.*;
+import org.graphstream.ui.view.Viewer;
 
 /**
  *
@@ -112,10 +114,12 @@ public class Principal extends javax.swing.JFrame {
                 //Se cierra el archivo
                 leer.close();
                 try {
-                    this.lineas_metro = iniciar.Iniciar(jsonString, grafo);
+                    this.lineas_metro = iniciar.Iniciar(jsonString);
+                    grafo = iniciar.retornar_grafo();
                     this.jTextArea1.setText("Elementos inicializados de manera exitosa.");
+                    // "Ha ocurrido un error al procesar el archivo."
                 } catch (Exception e) {
-                    this.jTextArea1.setText("Ha ocurrido un error al procesar el archivo.");
+                    this.jTextArea1.setText(e.getMessage());
                 }
                 
             } else {
