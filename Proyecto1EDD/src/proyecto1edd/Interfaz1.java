@@ -187,9 +187,21 @@ public class Interfaz1 extends javax.swing.JFrame {
 
     private void GuardarTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarTActionPerformed
         System.out.println(t);
-        String ValorInicial = NuevoValorT.getText();
-        t = Integer.parseInt(ValorInicial);
-        System.out.println(t);
+        String ValorInicial = NuevoValorT.getText(); 
+
+        // Verificar si el ValorInicial no es nulo o vacío  
+        if (ValorInicial != null && !ValorInicial.trim().isEmpty()) {  
+            try {  
+                // Intentar convertir el valor a un número entero  
+                int t = Integer.parseInt(ValorInicial);  
+                System.out.println(t);  
+            } catch (NumberFormatException e) {  
+                // Manejo de la excepción si no es un número entero válido  
+                System.out.println("Error: El valor ingresado no es un número entero válido.");  
+            }  
+        } else {  
+            System.out.println("Error: El campo está vacío o es nulo.");  
+}
         //Falta actualizar en la estructura de datos
         
     }//GEN-LAST:event_GuardarTActionPerformed
