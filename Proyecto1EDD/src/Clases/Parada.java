@@ -46,36 +46,5 @@ public class Parada {
     // Retorna el valor de Sucursal
     public boolean Sucursal(){
         return Sucursal;
-    }
-    
-    /**
-    *
-    * @author carluchocp
-    * getters and setters
-    */
-
-    public String getNombre() {
-        return Nombre;
-    }
-
-    public void setNombre(String Nombre) {
-        this.Nombre = Nombre;
-    }
-
-    public String getLinea() {
-        return Linea;
-    }
-
-    public void setLinea(String Linea) {
-        this.Linea = Linea;
-    }
-
-    public boolean isSucursal() {
-        return Sucursal;
-    }
-
-    public void setSucursal(boolean Sucursal) {
-        this.Sucursal = Sucursal;
-    } 
-    
+    }    
 }
