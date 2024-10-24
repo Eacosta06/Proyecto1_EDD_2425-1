@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package proyecto1edd;
+import Clases.*;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.SingleGraph;
 
@@ -12,6 +13,8 @@ import org.graphstream.graph.implementations.SingleGraph;
  */
 public class Interfaz1 extends javax.swing.JFrame {
     int t;
+    Graph grafo;
+    Lista2 lineas_metro;
 
     /**
      * Creates new form Interfaz1
@@ -140,32 +143,8 @@ public class Interfaz1 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void MostrarGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarGrafoActionPerformed
-// Especificar que se usará Swing como interfaz de usuario
-        System.setProperty("org.graphstream.ui", "swing");
 
-        Graph graph = new SingleGraph("Cobertura de Sucursales");
-        
-
-        // Agregar nodos y asignarles un nombre/etiqueta
-        Node nodeA = graph.addNode("A");
-        nodeA.setAttribute("ui.label", "Nodo A");
-
-        Node nodeB = graph.addNode("B");
-        nodeB.setAttribute("ui.label", "Nodo B");
-
-        Node nodeC = graph.addNode("C");
-        nodeC.setAttribute("ui.label", "Nodo C");
-
-        // Agregar aristas (edges) entre los nodos y asignarles etiquetas
-        Edge edgeAB = graph.addEdge("AB", "A", "B");
-
-        Edge edgeBC = graph.addEdge("BC", "B", "C");
-
-        Edge edgeCA = graph.addEdge("CA", "C", "A");
-
-        // Mostrar el grafo con etiquetas
-        graph.display();
-        
+        grafo.display();
         
     }//GEN-LAST:event_MostrarGrafoActionPerformed
 
@@ -205,7 +184,12 @@ public class Interfaz1 extends javax.swing.JFrame {
         //Falta actualizar en la estructura de datos
         
     }//GEN-LAST:event_GuardarTActionPerformed
-
+    
+    public void establecer(Graph graph, Lista2 list){
+        this.grafo = graph;
+        this.lineas_metro = list;
+    }
+    
     /**
      * @param args the command line arguments
      */

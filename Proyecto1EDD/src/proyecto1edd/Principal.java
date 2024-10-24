@@ -7,10 +7,8 @@ package proyecto1edd;
 import Clases.*;
 import java.io.*;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
-import org.graphstream.ui.view.Viewer;
 
 /**
  *
@@ -113,15 +111,17 @@ public class Principal extends javax.swing.JFrame {
                 }
                 //Se cierra el archivo
                 leer.close();
-                Interfaz1 pantalla = new Interfaz1();
-                pantalla.setVisible(true);
-                this.setVisible(false);
+                
                 
                 try {
                     this.lineas_metro = iniciar.Iniciar(jsonString);
                     grafo = iniciar.retornar_grafo();
                     this.jTextArea1.setText("Elementos inicializados de manera exitosa.");
                     // "Ha ocurrido un error al procesar el archivo."
+                    Interfaz1 pantalla = new Interfaz1();
+                    pantalla.setVisible(true);
+                    this.setVisible(false);
+                    pantalla.establecer(grafo, lineas_metro);
                 } catch (Exception e) {
                     this.jTextArea1.setText(e.getMessage());
                 }

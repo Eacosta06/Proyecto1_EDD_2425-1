@@ -62,4 +62,8 @@ public class Lista2 {
         }
     }
     
+    public void vaciar(){
+        this.pFirst = null;
+    }
+    
 }
