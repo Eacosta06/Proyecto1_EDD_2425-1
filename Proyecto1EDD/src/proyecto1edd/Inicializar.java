@@ -6,9 +6,9 @@ package proyecto1edd;
 
 import Clases.*;
 import org.graphstream.graph.*;
-import org.graphstream.graph.implementations.SingleGraph;
 import com.google.gson.*;
 import java.util.Set;
+import org.graphstream.graph.implementations.*;
 /**
  *
  * @author esteacosta
@@ -19,6 +19,8 @@ public class Inicializar {
     //Se crea una lista temporal donde se guardarán las conexiones entre líneas
     Lista2 conexiones;
     Lista2 lineas_metro;
+    String anterior;
+    Graph grafo;
 
     public Inicializar() {
         conexiones = new Lista2();
@@ -51,14 +53,32 @@ public class Inicializar {
         return parada;
     }
     
-    public void Conectar_Paradas(Nodo p1, Nodo p2){
+    public void Conectar_Paradas(Nodo p1, Nodo p2, boolean existe){
         p1.setpInterseccion(p2);
         p2.setpInterseccion(p1);
         p1.cambiarInterseccion();
         p2.cambiarInterseccion();
+        if (!existe){
+            grafo.addNode(p1.Parada().Nombre());
+            grafo.addNode(p2.Parada().Nombre());
+            grafo.addEdge(p1.Parada().Nombre() + p2.Parada().Nombre(), p1.Parada().Nombre(), p2.Parada().Nombre());
+        }
+        
     }
     
-    public Lista2 Iniciar(String jsonString, Graph grafo){
+    public Graph retornar_grafo(){
+        return grafo;
+    }
+    
+    public void añadir_borde(String ant, String act){
+        try {
+            grafo.addEdge(ant + act, ant, act);
+        } catch (EdgeRejectedException | ElementNotFoundException | IdAlreadyInUseException e) {
+            
+        }
+    }
+    
+    public Lista2 Iniciar(String jsonString){
         
         Nodo2 line_metro;
         
@@ -76,6 +96,8 @@ public class Inicializar {
         for (String llave : llaves){
             // Se crea  la lista lineas con el nombre de la red de metro
             Lista lineas = new Lista(llave);
+            grafo = new SingleGraph(llave);
+            this.anterior = null;
             
             JsonElement l_lineas = iterable.get(llave);
             JsonArray lista_lineas = l_lineas.getAsJsonArray();
@@ -103,12 +125,8 @@ public class Inicializar {
                             for (String parada1 : paradas2){
                                 Nodo connect = Buscar_Conexion(parada1);
                                 if (connect != null){
-                                    
+                                    nParada = connect;
                                     if (connect.getpNext() == null & connect.getpPrev() == null) {
-                                        Llinea.agregar(connect);
-                                        connect.Parada().CambiarLinea(linea);
-                                        nParada = connect;
-                                    } else {
                                         Llinea.agregar(connect);
                                         connect.Parada().CambiarLinea(linea);
                                     }
@@ -122,7 +140,7 @@ public class Inicializar {
                                         Parada parada = new Parada(parada1, linea);
                                         nParada = new Nodo(parada);
                                         
-                                        this.Conectar_Paradas(nParada, connect2);
+                                        this.Conectar_Paradas(nParada, connect2, true);
                                         connect2.Parada().CambiarLinea(linea);
                                         
                                         Llinea.agregar(nParada);
@@ -149,13 +167,19 @@ public class Inicializar {
                                         //Agrega el Nodo2 a la lista de conexiones
                                         this.conexiones.agregar(PConectada);
 
-                                        this.Conectar_Paradas(nParada, nParada2);
-                                    }
-                                    
-                                    
+                                        this.Conectar_Paradas(nParada, nParada2, false);
+                                    }    
                                 }
                             }
-                            
+                            if (j == 0 ){
+                                line_metro = new Nodo2(nParada);
+                                this.lineas_metro.agregar(line_metro);
+                                anterior = nParada.Parada().Nombre();
+                            } else {
+                                String actual = nParada.Parada().Nombre();
+                                grafo.addEdge(anterior + actual, anterior, actual);
+                                anterior = actual;
+                            } 
                         } else {
                             //Convierte el JsonElement a String
                             JsonPrimitive e_parada = lista_paradas.get(j).getAsJsonPrimitive();
@@ -172,18 +196,26 @@ public class Inicializar {
                             if (i == 0){
                                 lineas.agregar(nParada);
                             }
-                        }
-                        
-                        if (j ==0 ){
-                            line_metro = new Nodo2(nParada);
-                            this.lineas_metro.agregar(line_metro);
+                            
+                            if (j == 0 ){
+                                line_metro = new Nodo2(nParada);
+                                this.lineas_metro.agregar(line_metro);
+                                anterior = nParada.Parada().Nombre();
+                                grafo.addNode(anterior);
+                            } else {
+                                String actual = nParada.Parada().Nombre();
+                                try {
+                                    grafo.addNode(actual);
+                                    grafo.addEdge(anterior + actual, anterior, actual);
+                                } catch (EdgeRejectedException | ElementNotFoundException | IdAlreadyInUseException e) {
+                                    this.añadir_borde(anterior, actual);
+                                }
+                                anterior = actual;
+                            }
                         }
                     }
-                    
                 }
-                 
             }
-            
         }
         return lineas_metro;
     }
