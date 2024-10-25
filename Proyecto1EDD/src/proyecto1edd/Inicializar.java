@@ -206,8 +206,10 @@ public class Inicializar {
                                 line_metro = new Nodo2(nParada);
                                 this.lineas_metro.agregar(line_metro);
                                 anterior = nParada.Parada().Nombre();
-                                Node nodo = grafo.addNode(anterior);
-                                nodo.setAttribute("ui.label", anterior);
+                                if (grafo.getNode(anterior) == null){
+                                    Node nodo = grafo.addNode(anterior);
+                                    nodo.setAttribute("ui.label", anterior);
+                                }
                             } else {
                                 String actual = nParada.Parada().Nombre();
                                 if (grafo.getNode(actual) == null){
