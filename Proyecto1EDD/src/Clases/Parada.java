@@ -4,6 +4,9 @@
  */
 package Clases;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author esteacosta
@@ -12,11 +15,13 @@ package Clases;
 public class Parada {
     private String Nombre;
     private String Linea;
+    private List<Parada> conexiones;
     private boolean Sucursal;
 
     public Parada(String Nombre, String Linea) {
         this.Nombre = Nombre;
         this.Linea = Linea;
+        this.conexiones = new ArrayList <>();
         this.Sucursal = false;
     }
     
@@ -46,6 +51,10 @@ public class Parada {
     // Retorna el valor de Sucursal
     public boolean Sucursal(){
         return Sucursal;
+    }
+
+    Iterable<Parada> getConexiones() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     

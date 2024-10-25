@@ -4,6 +4,9 @@
  */
 package proyecto1edd;
 import Clases.*;
+import java.io.FileWriter;
+import java.util.List;
+import javax.swing.JOptionPane;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.SingleGraph;
 
@@ -158,15 +161,36 @@ public class Interfaz1 extends javax.swing.JFrame {
     }//GEN-LAST:event_NuevoValorTActionPerformed
 
     private void SucursalNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SucursalNuevaActionPerformed
-        // TODO add your handling code here:
+         // Crear sucursal  
+       //Sucursal sucursal1 = new Sucursal("Sucursal 1", p1);  
+
     }//GEN-LAST:event_SucursalNuevaActionPerformed
 
     private void GuardarSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarSucursalActionPerformed
-        // TODO add your handling code here:
+ 
+        String DatosSucursalNueva = SucursalNueva.getText();  
+        String nombreParada;  
+        nombreParada = (String) cbParada.getSelectedItem();
+
+        if (nombreParada == null) {  
+            JOptionPane.showMessageDialog(this, "Por favor, llena todos los campos.");  
+            return;  
+        }  
+
+        try (FileWriter escribir = new FileWriter("sucursales.txt", true)) { // Agregar sucursales al archivo
+            escribir.write(DatosSucursalNueva + "," + nombreParada + "\n");  
+            JOptionPane.showMessageDialog(this, "Información guardada exitosamente!");  
+        } catch (IOException ex) {  
+            JOptionPane.showMessageDialog(this, "Error al guardar la información: " + ex.getMessage());  
+        }  
     }//GEN-LAST:event_GuardarSucursalActionPerformed
 
     private void VerCoberturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerCoberturaActionPerformed
-        // TODO add your handling code here:
+        
+         // Evaluar la cobertura  
+       int t = 3; // Radio de cobertura  
+       List<Parada> cubiertas = red.obtenerCobertura(sucursal.getUbicacion(), t);  
+
     }//GEN-LAST:event_VerCoberturaActionPerformed
 
     private void GuardarTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarTActionPerformed
