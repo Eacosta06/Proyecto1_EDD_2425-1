@@ -119,7 +119,7 @@ public class Principal extends javax.swing.JFrame {
                     grafo = iniciar.retornar_grafo();
                     this.jTextArea1.setText("Elementos inicializados de manera exitosa.");
                     // "Ha ocurrido un error al procesar el archivo."
-                    Interfaz1 pantalla = new Interfaz1();
+                    Interfaz1 pantalla = new Interfaz1(lineas_metro,iniciar.conexiones);
                     pantalla.setVisible(true);
                     this.setVisible(false);
                     pantalla.establecer(grafo, lineas_metro);

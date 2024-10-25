@@ -3,28 +3,30 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package proyecto1edd;
+
 import Clases.*;
 import java.io.FileWriter;
-import java.util.List;
 import javax.swing.JOptionPane;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.SingleGraph;
+import org.graphstream.ui.graphicGraph.stylesheet.Color;
 
 /**
  *
  * @author maria
  */
 public class Interfaz1 extends javax.swing.JFrame {
+
     int t;
     Graph grafo;
     Lista2 lineas_metro;
+    Lista2 conexiones;
 
-    /**
-     * Creates new form Interfaz1
-     */
-    public Interfaz1() {
+    public Interfaz1(Lista2 lineas_metro, Lista2 conexiones) {
         initComponents();
         t = 0;
+        this.lineas_metro = lineas_metro;
+        this.conexiones = conexiones;
     }
 
     /**
@@ -153,7 +155,7 @@ public class Interfaz1 extends javax.swing.JFrame {
     private void MostrarGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarGrafoActionPerformed
         //Muestra el Grafo.
         grafo.display();
-        
+
     }//GEN-LAST:event_MostrarGrafoActionPerformed
 
     private void NuevoValorTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoValorTActionPerformed
@@ -161,55 +163,54 @@ public class Interfaz1 extends javax.swing.JFrame {
     }//GEN-LAST:event_NuevoValorTActionPerformed
 
     private void SucursalNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SucursalNuevaActionPerformed
-         // Crear sucursal  
-       //Sucursal sucursal1 = new Sucursal("Sucursal 1", p1);  
+        // Crear sucursal  
+        //Sucursal sucursal1 = new Sucursal("Sucursal 1", p1);  
 
     }//GEN-LAST:event_SucursalNuevaActionPerformed
 
     private void GuardarSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarSucursalActionPerformed
- 
-        String DatosSucursalNueva = SucursalNueva.getText();  
-        String nombreParada;  
-        nombreParada = (String) cbParada.getSelectedItem();
 
-        if (nombreParada == null) {  
-            JOptionPane.showMessageDialog(this, "Por favor, llena todos los campos.");  
-            return;  
-        }  
+        String DatosSucursalNueva = SucursalNueva.getText();
 
-        try (FileWriter escribir = new FileWriter("sucursales.txt", true)) { // Agregar sucursales al archivo
-            escribir.write(DatosSucursalNueva + "," + nombreParada + "\n");  
-            JOptionPane.showMessageDialog(this, "Información guardada exitosamente!");  
-        } catch (IOException ex) {  
-            JOptionPane.showMessageDialog(this, "Error al guardar la información: " + ex.getMessage());  
-        }  
+        Nodo2 aux = this.conexiones.primero();
+        while (aux != null) {
+            System.out.println(aux.getData().Parada().Nombre());
+            if (aux.getData().Parada().Nombre().equals(DatosSucursalNueva)) {
+                if (aux.getData().Parada().Sucursal()) {
+                    aux.getData().Parada().quitarSucursal();
+                    grafo.getNode(DatosSucursalNueva).setAttribute("ui.color", Color.WHITE);
+                } else {
+                    aux.getData().Parada().agregarSucursal();
+                    grafo.getNode(DatosSucursalNueva).setAttribute("ui.color", Color.BLUE);
+                }
+            }
+        aux = aux.getpNext();
+        }
+        
     }//GEN-LAST:event_GuardarSucursalActionPerformed
 
     private void VerCoberturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerCoberturaActionPerformed
-        
-         // Evaluar la cobertura  
-       int t = 3; // Radio de cobertura  
-       List<Parada> cubiertas = red.obtenerCobertura(sucursal.getUbicacion(), t);  
+
 
     }//GEN-LAST:event_VerCoberturaActionPerformed
 
     private void GuardarTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarTActionPerformed
-        
-        String ValorInicial = NuevoValorT.getText(); 
+
+        String ValorInicial = NuevoValorT.getText();
 
         // Verificar si el ValorInicial no es nulo o vacío  
-        if (ValorInicial != null && !ValorInicial.trim().isEmpty()) {  
-            try {  
+        if (ValorInicial != null && !ValorInicial.trim().isEmpty()) {
+            try {
                 // Intentar convertir el valor a un número entero  
-                this.t = Integer.parseInt(ValorInicial);  
-                this.Consola.setText("Se estableció "+t);
-                
-            } catch (NumberFormatException e) {  
-                
+                this.t = Integer.parseInt(ValorInicial);
+                this.Consola.setText("Se estableció " + t);
+
+            } catch (NumberFormatException e) {
+
                 // Manejo de la excepción si no es un número entero válido  
-                this.Consola.setText("Error: El valor ingresado no es un"+"\n"+ "número entero válido."+"\n"+"->"+ValorInicial);
-                
-            }  
+                this.Consola.setText("Error: El valor ingresado no es un" + "\n" + "número entero válido." + "\n" + "->" + ValorInicial);
+
+            }
         } else {
             //Mensaje de error cuando se ingresa vacío.
             this.Consola.setText("Error: El campo está vacío o es nulo.");
@@ -223,16 +224,16 @@ public class Interfaz1 extends javax.swing.JFrame {
         Anadir_linea anadirL = new Anadir_linea();
         anadirL.setVisible(true);
     }//GEN-LAST:event_AnadirLineaActionPerformed
-    
-    public void establecer(Graph graph, Lista2 list){
+
+    public void establecer(Graph graph, Lista2 list) {
         /*
         Pasa los valores de grafo y lineas_metro desde
         la interfaz Principal a esta Interfaz1.
-        */
+         */
         this.grafo = graph;
         this.lineas_metro = list;
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -285,4 +286,3 @@ public class Interfaz1 extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
-
