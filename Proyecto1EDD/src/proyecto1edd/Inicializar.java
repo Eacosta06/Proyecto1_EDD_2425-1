@@ -17,14 +17,15 @@ import org.graphstream.graph.implementations.*;
  */
 public class Inicializar {
     //Se crea una lista temporal donde se guardarán las conexiones entre líneas
-    Lista2 conexiones;
-    Lista2 lineas_metro;
+    Grafo conexiones;
+    Grafo lineas_metro;
     String anterior;
     Graph grafo;
+    Parada paradaAnterior;
 
     public Inicializar() {
-        conexiones = new Lista2();
-        lineas_metro = new Lista2();
+        conexiones = new Grafo();
+        lineas_metro = new Grafo();
     }
     
     /**
@@ -79,7 +80,7 @@ public class Inicializar {
         }
     }
     
-    public Lista2 Iniciar(String jsonString){
+    public Grafo Iniciar(String jsonString){
         
         Nodo2 line_metro;
         this.conexiones.vaciar();
@@ -103,6 +104,7 @@ public class Inicializar {
             System.setProperty("org.graphstream.ui", "swing");
             grafo = new MultiGraph(llave);
             this.anterior = null;
+            this.paradaAnterior = null;
             
             JsonElement l_lineas = iterable.get(llave);
             JsonArray lista_lineas = l_lineas.getAsJsonArray();
@@ -180,10 +182,13 @@ public class Inicializar {
                                 line_metro = new Nodo2(nParada);
                                 this.lineas_metro.agregar(line_metro);
                                 anterior = nParada.Parada().Nombre();
+                                paradaAnterior = nParada.Parada();
+                                
                             } else {
                                 String actual = nParada.Parada().Nombre();
                                 Edge borde = grafo.addEdge(anterior + actual, anterior, actual);
                                 anterior = actual;
+                                paradaAnterior = nParada.Parada();
                             } 
                         } else {
                             //Convierte el JsonElement a String
@@ -203,16 +208,27 @@ public class Inicializar {
                             }
                             
                             if (j == 0 ){
+                                
                                 line_metro = new Nodo2(nParada);
                                 this.lineas_metro.agregar(line_metro);
                                 anterior = nParada.Parada().Nombre();
+                                paradaAnterior = nParada.Parada();
                                 if (grafo.getNode(anterior) == null){
                                     Node nodo = grafo.addNode(anterior);
                                     nodo.setAttribute("ui.label", anterior);
                                 }
                             } else {
+                               
                                 String actual = nParada.Parada().Nombre();
-                                if (grafo.getNode(actual) == null){
+                                nParada.Parada().AgregarConexion(paradaAnterior);
+                                if (paradaAnterior != null){
+                                    paradaAnterior.AgregarConexion(nParada.Parada());
+                                }
+                                line_metro = new Nodo2(nParada);
+                               
+                                
+                                this.lineas_metro.agregar(line_metro);
+                                if (grafo.getNode(actual) == null){   
                                     Node nodo = grafo.addNode(actual);
                                     nodo.setAttribute("ui.label", actual);
                                     Edge borde = grafo.addEdge(anterior + actual, anterior, actual);
@@ -220,6 +236,8 @@ public class Inicializar {
                                     this.añadir_borde(anterior, actual);
                                 }
                                 anterior = actual;
+                                paradaAnterior = nParada.Parada();
+                                
                             }
                         }
                     }

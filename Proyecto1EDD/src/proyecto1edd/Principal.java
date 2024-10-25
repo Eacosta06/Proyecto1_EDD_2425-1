@@ -17,7 +17,7 @@ import org.graphstream.graph.implementations.*;
  */
 public class Principal extends javax.swing.JFrame {
     Graph grafo;
-    Lista2 lineas_metro;
+    Grafo lineas_metro;
     Inicializar iniciar;
 
     /**

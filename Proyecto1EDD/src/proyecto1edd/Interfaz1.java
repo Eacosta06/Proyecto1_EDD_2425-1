@@ -19,10 +19,10 @@ public class Interfaz1 extends javax.swing.JFrame {
 
     int t;
     Graph grafo;
-    Lista2 lineas_metro;
-    Lista2 conexiones;
+    Grafo lineas_metro;
+    Grafo conexiones;
 
-    public Interfaz1(Lista2 lineas_metro, Lista2 conexiones) {
+    public Interfaz1(Grafo lineas_metro, Grafo conexiones) {
         initComponents();
         t = 0;
         this.lineas_metro = lineas_metro;
@@ -225,7 +225,7 @@ public class Interfaz1 extends javax.swing.JFrame {
         anadirL.setVisible(true);
     }//GEN-LAST:event_AnadirLineaActionPerformed
 
-    public void establecer(Graph graph, Lista2 list) {
+    public void establecer(Graph graph, Grafo list) {
         /*
         Pasa los valores de grafo y lineas_metro desde
         la interfaz Principal a esta Interfaz1.
