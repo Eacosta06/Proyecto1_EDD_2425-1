@@ -8,10 +8,10 @@ package Clases;
  *
  * @author esteacosta
  */
-public class Lista2 {
+public class Grafo {
     private Nodo2 pFirst;
 
-    public Lista2() {
+    public Grafo() {
         this.pFirst = null;
     }
     
@@ -60,6 +60,10 @@ public class Lista2 {
                 encontrado.setpNext(null);
             }
         }
+    }
+    
+    public void vaciar(){
+        this.pFirst = null;
     }
     
 }

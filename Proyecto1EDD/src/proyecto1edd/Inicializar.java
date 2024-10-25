@@ -17,14 +17,15 @@ import org.graphstream.graph.implementations.*;
  */
 public class Inicializar {
     //Se crea una lista temporal donde se guardarán las conexiones entre líneas
-    Lista2 conexiones;
-    Lista2 lineas_metro;
+    Grafo conexiones;
+    Grafo lineas_metro;
     String anterior;
     Graph grafo;
+    Parada paradaAnterior;
 
     public Inicializar() {
-        conexiones = new Lista2();
-        lineas_metro = new Lista2();
+        conexiones = new Grafo();
+        lineas_metro = new Grafo();
     }
     
     /**
@@ -36,6 +37,7 @@ public class Inicializar {
     public Nodo Buscar_Conexion(String nombre){
         Nodo2 aux;
         Nodo parada= null;
+        
         if (!this.conexiones.esVacia()){
             boolean encontrado = false;
             aux = this.conexiones.primero();
@@ -59,9 +61,11 @@ public class Inicializar {
         p1.cambiarInterseccion();
         p2.cambiarInterseccion();
         if (!existe){
-            grafo.addNode(p1.Parada().Nombre());
-            grafo.addNode(p2.Parada().Nombre());
-            grafo.addEdge(p1.Parada().Nombre() + p2.Parada().Nombre(), p1.Parada().Nombre(), p2.Parada().Nombre());
+            Node nodo = grafo.addNode(p1.Parada().Nombre());
+            nodo.setAttribute("ui.label", p1.Parada().Nombre());
+            Node nodo2 = grafo.addNode(p2.Parada().Nombre());
+            nodo2.setAttribute("ui.label", p2.Parada().Nombre());
+            Edge borde = grafo.addEdge(p1.Parada().Nombre() + p2.Parada().Nombre(), p1.Parada().Nombre(), p2.Parada().Nombre());
         }
         
     }
@@ -71,16 +75,16 @@ public class Inicializar {
     }
     
     public void añadir_borde(String ant, String act){
-        try {
+        if (grafo.getEdge(ant + act) == null){
             grafo.addEdge(ant + act, ant, act);
-        } catch (EdgeRejectedException | ElementNotFoundException | IdAlreadyInUseException e) {
-            
         }
     }
     
-    public Lista2 Iniciar(String jsonString){
+    public Grafo Iniciar(String jsonString){
         
         Nodo2 line_metro;
+        this.conexiones.vaciar();
+        this.lineas_metro.vaciar();
         
         //Se utiliza la libreria Gson
         Gson gson = new Gson();
@@ -96,8 +100,11 @@ public class Inicializar {
         for (String llave : llaves){
             // Se crea  la lista lineas con el nombre de la red de metro
             Lista lineas = new Lista(llave);
-            grafo = new SingleGraph(llave);
+            
+            System.setProperty("org.graphstream.ui", "swing");
+            grafo = new MultiGraph(llave);
             this.anterior = null;
+            this.paradaAnterior = null;
             
             JsonElement l_lineas = iterable.get(llave);
             JsonArray lista_lineas = l_lineas.getAsJsonArray();
@@ -175,10 +182,13 @@ public class Inicializar {
                                 line_metro = new Nodo2(nParada);
                                 this.lineas_metro.agregar(line_metro);
                                 anterior = nParada.Parada().Nombre();
+                                paradaAnterior = nParada.Parada();
+                                
                             } else {
                                 String actual = nParada.Parada().Nombre();
-                                grafo.addEdge(anterior + actual, anterior, actual);
+                                Edge borde = grafo.addEdge(anterior + actual, anterior, actual);
                                 anterior = actual;
+                                paradaAnterior = nParada.Parada();
                             } 
                         } else {
                             //Convierte el JsonElement a String
@@ -198,19 +208,36 @@ public class Inicializar {
                             }
                             
                             if (j == 0 ){
+                                
                                 line_metro = new Nodo2(nParada);
                                 this.lineas_metro.agregar(line_metro);
                                 anterior = nParada.Parada().Nombre();
-                                grafo.addNode(anterior);
+                                paradaAnterior = nParada.Parada();
+                                if (grafo.getNode(anterior) == null){
+                                    Node nodo = grafo.addNode(anterior);
+                                    nodo.setAttribute("ui.label", anterior);
+                                }
                             } else {
+                               
                                 String actual = nParada.Parada().Nombre();
-                                try {
-                                    grafo.addNode(actual);
-                                    grafo.addEdge(anterior + actual, anterior, actual);
-                                } catch (EdgeRejectedException | ElementNotFoundException | IdAlreadyInUseException e) {
+                                nParada.Parada().AgregarConexion(paradaAnterior);
+                                if (paradaAnterior != null){
+                                    paradaAnterior.AgregarConexion(nParada.Parada());
+                                }
+                                line_metro = new Nodo2(nParada);
+                               
+                                
+                                this.lineas_metro.agregar(line_metro);
+                                if (grafo.getNode(actual) == null){   
+                                    Node nodo = grafo.addNode(actual);
+                                    nodo.setAttribute("ui.label", actual);
+                                    Edge borde = grafo.addEdge(anterior + actual, anterior, actual);
+                                } else {
                                     this.añadir_borde(anterior, actual);
                                 }
                                 anterior = actual;
+                                paradaAnterior = nParada.Parada();
+                                
                             }
                         }
                     }

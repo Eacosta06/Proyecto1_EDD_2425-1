@@ -4,6 +4,7 @@
  */
 package Clases;
 
+
 /**
  *
  * @author esteacosta
@@ -12,11 +13,13 @@ package Clases;
 public class Parada {
     private String Nombre;
     private String Linea;
+    private Grafo conexiones;
     private boolean Sucursal;
 
     public Parada(String Nombre, String Linea) {
         this.Nombre = Nombre;
         this.Linea = Linea;
+        this.conexiones = new Grafo();
         this.Sucursal = false;
     }
     
@@ -47,6 +50,11 @@ public class Parada {
     public boolean Sucursal(){
         return Sucursal;
     }
-    
+    public void AgregarConexion(Parada parada){
+        Nodo nuevo = new Nodo(parada);
+        Nodo2 nuevo2 = new Nodo2(nuevo);
+        this.conexiones.agregar(nuevo2);
+        
+    }
     
 }
