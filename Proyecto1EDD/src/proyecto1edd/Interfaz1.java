@@ -98,6 +98,11 @@ public class Interfaz1 extends javax.swing.JFrame {
 
         AnadirLinea.setFont(new java.awt.Font("Sylfaen", 0, 14)); // NOI18N
         AnadirLinea.setText("Añadir Línea");
+        AnadirLinea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AnadirLineaActionPerformed(evt);
+            }
+        });
         jPanel1.add(AnadirLinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, -1, -1));
 
         GuardarT.setFont(new java.awt.Font("Sylfaen", 0, 14)); // NOI18N
@@ -143,7 +148,7 @@ public class Interfaz1 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void MostrarGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarGrafoActionPerformed
-
+        //Muestra el Grafo.
         grafo.display();
         
     }//GEN-LAST:event_MostrarGrafoActionPerformed
@@ -174,18 +179,32 @@ public class Interfaz1 extends javax.swing.JFrame {
                 // Intentar convertir el valor a un número entero  
                 this.t = Integer.parseInt(ValorInicial);  
                 this.Consola.setText("Se estableció "+t);
+                
             } catch (NumberFormatException e) {  
+                
                 // Manejo de la excepción si no es un número entero válido  
-                this.Consola.setText("Error: El valor ingresado no es un"+"\n"+ "número entero válido."+"\n"+"->"+ValorInicial);  
+                this.Consola.setText("Error: El valor ingresado no es un"+"\n"+ "número entero válido."+"\n"+"->"+ValorInicial);
+                
             }  
-        } else {  
-            this.Consola.setText("Error: El campo está vacío o es nulo.");  
-}
+        } else {
+            //Mensaje de error cuando se ingresa vacío.
+            this.Consola.setText("Error: El campo está vacío o es nulo.");
+        }
         //Falta actualizar en la estructura de datos
-        
+        this.NuevoValorT.setText(null);
     }//GEN-LAST:event_GuardarTActionPerformed
+
+    private void AnadirLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnadirLineaActionPerformed
+        // TODO add your handling code here:
+        Anadir_linea anadirL = new Anadir_linea();
+        anadirL.setVisible(true);
+    }//GEN-LAST:event_AnadirLineaActionPerformed
     
     public void establecer(Graph graph, Lista2 list){
+        /*
+        Pasa los valores de grafo y lineas_metro desde
+        la interfaz Principal a esta Interfaz1.
+        */
         this.grafo = graph;
         this.lineas_metro = list;
     }
