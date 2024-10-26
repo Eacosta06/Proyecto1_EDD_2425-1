@@ -7,10 +7,8 @@ package proyecto1edd;
 import Clases.*;
 import java.io.*;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
-import org.graphstream.ui.view.Viewer;
 
 /**
  *
@@ -19,7 +17,7 @@ import org.graphstream.ui.view.Viewer;
  */
 public class Principal extends javax.swing.JFrame {
     Graph grafo;
-    Lista2 lineas_metro;
+    Grafo lineas_metro;
     Inicializar iniciar;
 
     /**
@@ -58,7 +56,8 @@ public class Principal extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        jLabel1.setText("Sistema de");
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel1.setText("Sistema de Cobertura de Sucursales");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -67,7 +66,7 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -85,7 +84,7 @@ public class Principal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addComponent(jButton1)))
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
@@ -113,15 +112,17 @@ public class Principal extends javax.swing.JFrame {
                 }
                 //Se cierra el archivo
                 leer.close();
-                Interfaz1 pantalla = new Interfaz1();
-                pantalla.setVisible(true);
-                this.setVisible(false);
+                
                 
                 try {
                     this.lineas_metro = iniciar.Iniciar(jsonString);
                     grafo = iniciar.retornar_grafo();
                     this.jTextArea1.setText("Elementos inicializados de manera exitosa.");
                     // "Ha ocurrido un error al procesar el archivo."
+                    Interfaz1 pantalla = new Interfaz1(lineas_metro,iniciar.conexiones);
+                    pantalla.setVisible(true);
+                    this.setVisible(false);
+                    pantalla.establecer(grafo, lineas_metro);
                 } catch (Exception e) {
                     this.jTextArea1.setText(e.getMessage());
                 }

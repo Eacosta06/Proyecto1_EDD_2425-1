@@ -3,22 +3,30 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package proyecto1edd;
+
+import Clases.*;
+import java.io.FileWriter;
+import javax.swing.JOptionPane;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.SingleGraph;
+import org.graphstream.ui.graphicGraph.stylesheet.Color;
 
 /**
  *
  * @author maria
  */
 public class Interfaz1 extends javax.swing.JFrame {
-    int t;
 
-    /**
-     * Creates new form Interfaz1
-     */
-    public Interfaz1() {
+    int t;
+    Graph grafo;
+    Grafo lineas_metro;
+    Grafo conexiones;
+
+    public Interfaz1(Grafo lineas_metro, Grafo conexiones) {
         initComponents();
         t = 0;
+        this.lineas_metro = lineas_metro;
+        this.conexiones = conexiones;
     }
 
     /**
@@ -37,13 +45,13 @@ public class Interfaz1 extends javax.swing.JFrame {
         LabelT = new javax.swing.JLabel();
         LabelSucursal = new javax.swing.JLabel();
         SucursalNueva = new javax.swing.JTextField();
-        Lineanueva = new javax.swing.JScrollPane();
-        LineaNueva = new javax.swing.JTextArea();
-        LabelLinea = new javax.swing.JLabel();
         GuardarSucursal = new javax.swing.JButton();
-        GuardarLinea = new javax.swing.JButton();
+        AnadirLinea = new javax.swing.JButton();
         GuardarT = new javax.swing.JButton();
         VerCobertura = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Consola = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,39 +68,29 @@ public class Interfaz1 extends javax.swing.JFrame {
                 MostrarGrafoActionPerformed(evt);
             }
         });
-        jPanel1.add(MostrarGrafo, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 320, 130, -1));
+        jPanel1.add(MostrarGrafo, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 310, 130, -1));
 
         NuevoValorT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NuevoValorTActionPerformed(evt);
             }
         });
-        jPanel1.add(NuevoValorT, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 240, -1));
+        jPanel1.add(NuevoValorT, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 240, -1));
 
         LabelT.setFont(new java.awt.Font("Sylfaen", 0, 14)); // NOI18N
         LabelT.setText("Inserta un valor para \"t\"");
-        jPanel1.add(LabelT, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
+        jPanel1.add(LabelT, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
 
         LabelSucursal.setFont(new java.awt.Font("Sylfaen", 0, 14)); // NOI18N
         LabelSucursal.setText("Colocar sucursal");
-        jPanel1.add(LabelSucursal, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 80, -1, -1));
+        jPanel1.add(LabelSucursal, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 80, -1, -1));
 
         SucursalNueva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SucursalNuevaActionPerformed(evt);
             }
         });
-        jPanel1.add(SucursalNueva, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, 240, -1));
-
-        LineaNueva.setColumns(20);
-        LineaNueva.setRows(5);
-        Lineanueva.setViewportView(LineaNueva);
-
-        jPanel1.add(Lineanueva, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 240, -1));
-
-        LabelLinea.setFont(new java.awt.Font("Sylfaen", 0, 14)); // NOI18N
-        LabelLinea.setText("Agregar linea");
-        jPanel1.add(LabelLinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
+        jPanel1.add(SucursalNueva, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 100, 240, -1));
 
         GuardarSucursal.setFont(new java.awt.Font("Sylfaen", 0, 14)); // NOI18N
         GuardarSucursal.setText("Guardar sucursal");
@@ -101,11 +99,16 @@ public class Interfaz1 extends javax.swing.JFrame {
                 GuardarSucursalActionPerformed(evt);
             }
         });
-        jPanel1.add(GuardarSucursal, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 140, 130, -1));
+        jPanel1.add(GuardarSucursal, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, 150, -1));
 
-        GuardarLinea.setFont(new java.awt.Font("Sylfaen", 0, 14)); // NOI18N
-        GuardarLinea.setText("Guardar linea");
-        jPanel1.add(GuardarLinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, -1, -1));
+        AnadirLinea.setFont(new java.awt.Font("Sylfaen", 0, 14)); // NOI18N
+        AnadirLinea.setText("Añadir Línea");
+        AnadirLinea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AnadirLineaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(AnadirLinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, -1, -1));
 
         GuardarT.setFont(new java.awt.Font("Sylfaen", 0, 14)); // NOI18N
         GuardarT.setText("Guardar \"T\"");
@@ -114,7 +117,7 @@ public class Interfaz1 extends javax.swing.JFrame {
                 GuardarTActionPerformed(evt);
             }
         });
-        jPanel1.add(GuardarT, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, -1, -1));
+        jPanel1.add(GuardarT, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, -1, -1));
 
         VerCobertura.setFont(new java.awt.Font("Sylfaen", 0, 14)); // NOI18N
         VerCobertura.setText("Ver Cobertura");
@@ -123,7 +126,17 @@ public class Interfaz1 extends javax.swing.JFrame {
                 VerCoberturaActionPerformed(evt);
             }
         });
-        jPanel1.add(VerCobertura, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 250, 130, -1));
+        jPanel1.add(VerCobertura, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 250, 130, -1));
+
+        Consola.setColumns(20);
+        Consola.setRows(5);
+        jScrollPane1.setViewportView(Consola);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 201, -1, 130));
+
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 15)); // NOI18N
+        jLabel1.setText("Consola");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -140,33 +153,9 @@ public class Interfaz1 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void MostrarGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarGrafoActionPerformed
-// Especificar que se usará Swing como interfaz de usuario
-        System.setProperty("org.graphstream.ui", "swing");
+        //Muestra el Grafo.
+        grafo.display();
 
-        Graph graph = new SingleGraph("Cobertura de Sucursales");
-        
-
-        // Agregar nodos y asignarles un nombre/etiqueta
-        Node nodeA = graph.addNode("A");
-        nodeA.setAttribute("ui.label", "Nodo A");
-
-        Node nodeB = graph.addNode("B");
-        nodeB.setAttribute("ui.label", "Nodo B");
-
-        Node nodeC = graph.addNode("C");
-        nodeC.setAttribute("ui.label", "Nodo C");
-
-        // Agregar aristas (edges) entre los nodos y asignarles etiquetas
-        Edge edgeAB = graph.addEdge("AB", "A", "B");
-
-        Edge edgeBC = graph.addEdge("BC", "B", "C");
-
-        Edge edgeCA = graph.addEdge("CA", "C", "A");
-
-        // Mostrar el grafo con etiquetas
-        graph.display();
-        
-        
     }//GEN-LAST:event_MostrarGrafoActionPerformed
 
     private void NuevoValorTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoValorTActionPerformed
@@ -174,37 +163,95 @@ public class Interfaz1 extends javax.swing.JFrame {
     }//GEN-LAST:event_NuevoValorTActionPerformed
 
     private void SucursalNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SucursalNuevaActionPerformed
-        // TODO add your handling code here:
+        // Crear sucursal  
+        //Sucursal sucursal1 = new Sucursal("Sucursal 1", p1);  
+
     }//GEN-LAST:event_SucursalNuevaActionPerformed
 
+    private void llenarListaParadas(Lista paradasVisitadas) {
+        Nodo2 lineaActual = this.lineas_metro.primero(); // Obtener el primer nodo de lineas_metro
+        while (lineaActual != null) {
+            Nodo nodoParada = lineaActual.getData(); // Obtener el nodo de parada de Nodo2
+            while (nodoParada.getpNext() != null) {
+                paradasVisitadas.agregar(nodoParada); // Agregar el Nodo a la lista de paradas
+
+                nodoParada = nodoParada.getpNext(); // Avanzar a la siguiente parada
+            }
+            lineaActual = lineaActual.getpNext(); // Ir a la siguiente línea
+        }
+    }
+
+    
     private void GuardarSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarSucursalActionPerformed
-        // TODO add your handling code here:
+        String datosSucursalNueva = SucursalNueva.getText().trim().toLowerCase(); // Eliminar espacios y pasar a minúsculas
+        Lista paradasVisitadas = new Lista("Paradas Visitadas");//Lista paradasVisitadas = new Lista(); // Lista temporal para almacenar todas las paradas
+        boolean sucursalEncontrada = false; // Bandera para verificar si se encuentra la sucursal
+
+        // Llenar la lista de paradas visitadas
+        llenarListaParadas(paradasVisitadas);
+
+        // Buscar si la parada existe en la lista visitada
+        Nodo aux = paradasVisitadas.Primero();
+        while (aux != null) {
+            if (aux.Parada().Nombre().trim().toLowerCase().equals(datosSucursalNueva)) {
+                this.SucursalNueva.setText(aux.Parada().Nombre()); // Guardar el nombre en el JTextField
+                this.Consola.setText("Sucursal establecida: " + SucursalNueva.getText());
+                sucursalEncontrada = true; // Se encontró la sucursal
+                break; // Salir del bucle si se encontró
+            }
+            aux = aux.getpNext(); // Avanzar al siguiente nodo
+        }
+
+        // Mensaje en consola si no se encuentra la parada
+        if (!sucursalEncontrada) {
+            this.Consola.setText("Error: La parada \"" + SucursalNueva.getText() + "\" no existe.");
+        }
+
     }//GEN-LAST:event_GuardarSucursalActionPerformed
 
     private void VerCoberturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerCoberturaActionPerformed
-        // TODO add your handling code here:
+
+
     }//GEN-LAST:event_VerCoberturaActionPerformed
 
     private void GuardarTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarTActionPerformed
-        System.out.println(t);
-        String ValorInicial = NuevoValorT.getText(); 
+        String ValorInicial = NuevoValorT.getText();
 
         // Verificar si el ValorInicial no es nulo o vacío  
-        if (ValorInicial != null && !ValorInicial.trim().isEmpty()) {  
-            try {  
+        if (ValorInicial != null && !ValorInicial.trim().isEmpty()) {
+            try {
                 // Intentar convertir el valor a un número entero  
-                int t = Integer.parseInt(ValorInicial);  
-                System.out.println(t);  
-            } catch (NumberFormatException e) {  
+                this.t = Integer.parseInt(ValorInicial);
+                this.Consola.setText("Se estableció " + t);
+
+            } catch (NumberFormatException e) {
+
                 // Manejo de la excepción si no es un número entero válido  
-                System.out.println("Error: El valor ingresado no es un número entero válido.");  
-            }  
-        } else {  
-            System.out.println("Error: El campo está vacío o es nulo.");  
-}
+                this.Consola.setText("Error: El valor ingresado no es un" + "\n" + "número entero válido." + "\n" + "->" + ValorInicial);
+
+            }
+        } else {
+            //Mensaje de error cuando se ingresa vacío.
+            this.Consola.setText("Error: El campo está vacío o es nulo.");
+        }
         //Falta actualizar en la estructura de datos
-        
+        this.NuevoValorT.setText(null);
     }//GEN-LAST:event_GuardarTActionPerformed
+
+    private void AnadirLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnadirLineaActionPerformed
+        // TODO add your handling code here:
+        Anadir_linea anadirL = new Anadir_linea();
+        anadirL.setVisible(true);
+    }//GEN-LAST:event_AnadirLineaActionPerformed
+
+    public void establecer(Graph graph, Grafo list) {
+        /*
+        Pasa los valores de grafo y lineas_metro desde
+        la interfaz Principal a esta Interfaz1.
+         */
+        this.grafo = graph;
+        this.lineas_metro = list;
+    }
 
     /**
      * @param args the command line arguments
@@ -242,20 +289,19 @@ public class Interfaz1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton GuardarLinea;
+    private javax.swing.JButton AnadirLinea;
+    private javax.swing.JTextArea Consola;
     private javax.swing.JButton GuardarSucursal;
     private javax.swing.JButton GuardarT;
-    private javax.swing.JLabel LabelLinea;
     private javax.swing.JLabel LabelSucursal;
     private javax.swing.JLabel LabelT;
-    private javax.swing.JTextArea LineaNueva;
-    private javax.swing.JScrollPane Lineanueva;
     private javax.swing.JButton MostrarGrafo;
     private javax.swing.JTextField NuevoValorT;
     private javax.swing.JTextField SucursalNueva;
     private javax.swing.JLabel Titulo;
     private javax.swing.JButton VerCobertura;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
-
