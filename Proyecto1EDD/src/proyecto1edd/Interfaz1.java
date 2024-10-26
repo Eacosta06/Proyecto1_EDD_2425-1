@@ -22,11 +22,9 @@ public class Interfaz1 extends javax.swing.JFrame {
     Grafo lineas_metro;
     Grafo conexiones;
 
-    public Interfaz1(Grafo lineas_metro, Grafo conexiones) {
+    public Interfaz1() {
         initComponents();
         t = 0;
-        this.lineas_metro = lineas_metro;
-        this.conexiones = conexiones;
     }
 
     /**
@@ -171,10 +169,11 @@ public class Interfaz1 extends javax.swing.JFrame {
     private void GuardarSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarSucursalActionPerformed
 
         String DatosSucursalNueva = SucursalNueva.getText();
+        boolean encontrado = false;
 
         Nodo2 aux = this.conexiones.primero();
-        while (aux != null) {
-            System.out.println(aux.getData().Parada().Nombre());
+        while (aux != null & !encontrado) {
+            this.Consola.setText(aux.getData().Parada().Nombre());
             if (aux.getData().Parada().Nombre().equals(DatosSucursalNueva)) {
                 if (aux.getData().Parada().Sucursal()) {
                     aux.getData().Parada().quitarSucursal();
@@ -183,8 +182,9 @@ public class Interfaz1 extends javax.swing.JFrame {
                     aux.getData().Parada().agregarSucursal();
                     grafo.getNode(DatosSucursalNueva).setAttribute("ui.color", Color.BLUE);
                 }
+                encontrado = true;
             }
-        aux = aux.getpNext();
+            aux = aux.getpNext();
         }
         
     }//GEN-LAST:event_GuardarSucursalActionPerformed
@@ -225,15 +225,16 @@ public class Interfaz1 extends javax.swing.JFrame {
         anadirL.setVisible(true);
     }//GEN-LAST:event_AnadirLineaActionPerformed
 
-    public void establecer(Graph graph, Grafo list) {
+    public void establecer(Graph graph, Grafo lineas_metro, Grafo conexiones) {
         /*
         Pasa los valores de grafo y lineas_metro desde
         la interfaz Principal a esta Interfaz1.
          */
         this.grafo = graph;
-        this.lineas_metro = list;
+        this.lineas_metro = lineas_metro;
+        this.conexiones = conexiones;
     }
-
+    
     /**
      * @param args the command line arguments
      */

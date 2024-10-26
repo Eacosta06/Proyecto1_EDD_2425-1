@@ -150,7 +150,7 @@ public class Redes {
         return paradas;
     }
 
-    public ListaNueva obtenerCobertura(Parada sucursal, int t) {
+    /*public ListaNueva obtenerCobertura(Parada sucursal, int t) {
         SimpleSet cubiertas = new SimpleSet();
         SimpleQueue queue = new SimpleQueue();
         SimpleSet visitados = new SimpleSet();
@@ -173,4 +173,5 @@ public class Redes {
         }
         return cubiertas.list;
     }
+    */
 }
