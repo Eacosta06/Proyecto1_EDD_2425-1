@@ -66,4 +66,6 @@ public class Nodo {
     public boolean Interseccion(){
         return this.Interseccion;
     }
+    
+    
 }

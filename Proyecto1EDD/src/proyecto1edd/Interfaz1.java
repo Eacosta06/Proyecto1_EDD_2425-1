@@ -171,17 +171,14 @@ public class Interfaz1 extends javax.swing.JFrame {
     private void llenarListaParadas(Lista paradasVisitadas) {
         Nodo2 lineaActual = this.lineas_metro.primero(); // Obtener el primer nodo de lineas_metro
         while (lineaActual != null) {
-            Nodo nodoParada = lineaActual.getData(); // Obtener el nodo de parada de Nodo2
-            while (nodoParada.getpNext() != null) {
-                paradasVisitadas.agregar(nodoParada); // Agregar el Nodo a la lista de paradas
-
-                nodoParada = nodoParada.getpNext(); // Avanzar a la siguiente parada
-            }
+            Nodo nodoParada = lineaActual.getData(); // Obtener el primer nodo de la lista de paradas
+            paradasVisitadas.agregar(nodoParada); 
             lineaActual = lineaActual.getpNext(); // Ir a la siguiente línea
+          //  }
         }
     }
 
-    
+        
     private void GuardarSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarSucursalActionPerformed
         String datosSucursalNueva = SucursalNueva.getText().trim().toLowerCase(); // Eliminar espacios y pasar a minúsculas
         Lista paradasVisitadas = new Lista("Paradas Visitadas");//Lista paradasVisitadas = new Lista(); // Lista temporal para almacenar todas las paradas
