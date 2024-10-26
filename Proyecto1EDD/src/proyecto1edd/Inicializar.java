@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package proyecto1edd;
-
 import Clases.*;
 import org.graphstream.graph.*;
 import com.google.gson.*;
@@ -95,7 +94,7 @@ public class Inicializar {
         
         //Se hace una lista de llaves
         Set<String> llaves = iterable.keySet();
-        
+
         //Se itera a través de la lista de llaves
         for (String llave : llaves){
             // Se crea  la lista lineas con el nombre de la red de metro

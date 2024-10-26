@@ -7,7 +7,7 @@ package Clases;
 
 /**
  *
- * @author esteacosta
+ * @author esteacosta y carluchocp
  * Clase Parada
  */
 public class Parada {
@@ -56,5 +56,4 @@ public class Parada {
         this.conexiones.agregar(nuevo2);
         
     }
-    
 }

@@ -166,27 +166,42 @@ public class Interfaz1 extends javax.swing.JFrame {
 
     }//GEN-LAST:event_SucursalNuevaActionPerformed
 
-    private void GuardarSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarSucursalActionPerformed
-
-        String DatosSucursalNueva = SucursalNueva.getText();
-        boolean encontrado = false;
-
-        Nodo2 aux = this.conexiones.primero();
-        while (aux != null & !encontrado) {
-            this.Consola.setText(aux.getData().Parada().Nombre());
-            if (aux.getData().Parada().Nombre().equals(DatosSucursalNueva)) {
-                if (aux.getData().Parada().Sucursal()) {
-                    aux.getData().Parada().quitarSucursal();
-                    grafo.getNode(DatosSucursalNueva).setAttribute("ui.color", Color.WHITE);
-                } else {
-                    aux.getData().Parada().agregarSucursal();
-                    grafo.getNode(DatosSucursalNueva).setAttribute("ui.color", Color.BLUE);
-                }
-                encontrado = true;
-            }
-            aux = aux.getpNext();
+    private void llenarListaParadas(Lista paradasVisitadas) {
+        Nodo2 lineaActual = this.lineas_metro.primero(); // Obtener el primer nodo de lineas_metro
+        while (lineaActual != null) {
+            Nodo nodoParada = lineaActual.getData(); // Obtener el primer nodo de la lista de paradas
+            paradasVisitadas.agregar(nodoParada); 
+            lineaActual = lineaActual.getpNext(); // Ir a la siguiente línea
+          //  }
         }
+    }
+
         
+    private void GuardarSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarSucursalActionPerformed
+        String datosSucursalNueva = SucursalNueva.getText().trim().toLowerCase(); // Eliminar espacios y pasar a minúsculas
+        Lista paradasVisitadas = new Lista("Paradas Visitadas");//Lista paradasVisitadas = new Lista(); // Lista temporal para almacenar todas las paradas
+        boolean sucursalEncontrada = false; // Bandera para verificar si se encuentra la sucursal
+
+        // Llenar la lista de paradas visitadas
+        llenarListaParadas(paradasVisitadas);
+
+        // Buscar si la parada existe en la lista visitada
+        Nodo aux = paradasVisitadas.Primero();
+        while (aux != null) {
+            if (aux.Parada().Nombre().trim().toLowerCase().equals(datosSucursalNueva)) {
+                this.SucursalNueva.setText(aux.Parada().Nombre()); // Guardar el nombre en el JTextField
+                this.Consola.setText("Sucursal establecida: " + SucursalNueva.getText());
+                sucursalEncontrada = true; // Se encontró la sucursal
+                break; // Salir del bucle si se encontró
+            }
+            aux = aux.getpNext(); // Avanzar al siguiente nodo
+        }
+
+        // Mensaje en consola si no se encuentra la parada
+        if (!sucursalEncontrada) {
+            this.Consola.setText("Error: La parada \"" + SucursalNueva.getText() + "\" no existe.");
+        }
+
     }//GEN-LAST:event_GuardarSucursalActionPerformed
 
     private void VerCoberturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerCoberturaActionPerformed
@@ -195,7 +210,6 @@ public class Interfaz1 extends javax.swing.JFrame {
     }//GEN-LAST:event_VerCoberturaActionPerformed
 
     private void GuardarTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarTActionPerformed
-
         String ValorInicial = NuevoValorT.getText();
 
         // Verificar si el ValorInicial no es nulo o vacío  
