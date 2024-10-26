@@ -221,7 +221,7 @@ public class Interfaz1 extends javax.swing.JFrame {
 
     private void AnadirLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnadirLineaActionPerformed
         // TODO add your handling code here:
-        Anadir_linea anadirL = new Anadir_linea();
+        Anadir_linea anadirL = new Anadir_linea(this.lineas_metro);
         anadirL.setVisible(true);
     }//GEN-LAST:event_AnadirLineaActionPerformed
 

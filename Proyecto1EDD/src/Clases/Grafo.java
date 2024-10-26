@@ -4,6 +4,8 @@
  */
 package Clases;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author esteacosta
@@ -64,6 +66,27 @@ public class Grafo {
     
     public void vaciar(){
         this.pFirst = null;
+    }
+    
+    public void agregarLinea(String NuevaLinea, String nombreLinea){
+        try {
+            String [] paradas = NuevaLinea.split("\n");
+            Parada paradaAnterior = null;
+            
+            for (int i = 0; i < paradas.length; i++) {
+                Parada Nuevaparada = new Parada(paradas[i], nombreLinea);
+                 Nodo nparada = new Nodo (Nuevaparada);
+                 this.agregar(new Nodo2(nparada));
+                 if (paradaAnterior != null){
+                     Nuevaparada.AgregarConexion(paradaAnterior);
+                     paradaAnterior.AgregarConexion(Nuevaparada);
+                 }
+                paradaAnterior = Nuevaparada;
+            }
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error en el dato ingresado");
+        }
     }
     
 }
