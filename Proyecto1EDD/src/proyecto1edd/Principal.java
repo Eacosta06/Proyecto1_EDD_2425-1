@@ -27,6 +27,8 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         grafo = new SingleGraph("Cobertura de Sucursales");
         iniciar = new Inicializar();
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
     }
 
     /**

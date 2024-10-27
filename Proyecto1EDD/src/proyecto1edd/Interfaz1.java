@@ -25,6 +25,10 @@ public class Interfaz1 extends javax.swing.JFrame {
     public Interfaz1() {
         initComponents();
         t = 0;
+        this.lineas_metro = lineas_metro;
+        this.conexiones = conexiones;
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
     }
 
     /**
@@ -55,7 +59,7 @@ public class Interfaz1 extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Titulo.setFont(new java.awt.Font("Sylfaen", 1, 37)); // NOI18N
+        Titulo.setFont(new java.awt.Font("Sylfaen", 1, 32)); // NOI18N
         Titulo.setText("Cobertura de sucursales");
         jPanel1.add(Titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, 410, -1));
 
@@ -205,8 +209,125 @@ public class Interfaz1 extends javax.swing.JFrame {
     }//GEN-LAST:event_GuardarSucursalActionPerformed
 
     private void VerCoberturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerCoberturaActionPerformed
+        String sucursalNombre = SucursalNueva.getText().trim().toLowerCase(); // Obtener el nombre de la sucursal
+        Nodo2 lineaActual = this.lineas_metro.primero(); // Obtener el primer nodo de lineas_metro
+        boolean sucursalEncontrada = false; // Bandera para verificar si se encontró la sucursal
+        Nodo nodoSucursalEncontrada = null; // Para almacenar el nodo de la sucursal encontrada
 
+        while (lineaActual != null) {
+            Nodo nodoParada = lineaActual.getData(); // Obtener el primer nodo de paradas
+            while (nodoParada != null) {
+                if (nodoParada.Parada().Nombre().trim().toLowerCase().equals(sucursalNombre)) {
+                    // Aquí puedes mostrar el grafo o resaltar la sucursal encontrada
+                    this.Consola.setText("Sucursal encontrada: " + nodoParada.Parada().Nombre());
+                    sucursalEncontrada = true; // Se encontró la sucursal
+                    nodoSucursalEncontrada = nodoParada; // Guardar el nodo de la sucursal encontrada
+                    break; // Salir del bucle si se encontró
+                }
+                nodoParada = nodoParada.getpNext(); // Avanzar al siguiente nodo
+            }
 
+            if (sucursalEncontrada) {
+                break; // Si ya se encontró la sucursal, no necesitamos seguir buscando
+            }
+
+            lineaActual = lineaActual.getpNext(); // Ir al siguiente nodo de línea
+        }
+
+        if (!sucursalEncontrada) {
+            this.Consola.setText("Error: La sucursal \"" + sucursalNombre + "\" no existe.");
+        } else {
+            Graph graphSucursal = new SingleGraph("Sucursal Encontrada");
+            
+            // Agregar el nodo de la sucursal
+            Node nodoSucursal = graphSucursal.addNode(nodoSucursalEncontrada.Parada().Nombre());
+            
+            nodoSucursal.setAttribute("ui.label", nodoSucursalEncontrada.Parada().Nombre());// Establecer la etiqueta del nodo para mostrar el nombre
+            nodoSucursal.setAttribute("ui.size", 20); // Ajustar el tamaño del nodo
+            nodoSucursal.setAttribute("ui.color", "blue"); // Color del nodo
+
+            // Crear nodos hacia atrás pPrev conectados en línea desde nodoSucursal
+            Nodo nodoActual = nodoSucursalEncontrada;
+            Node nodoRef = nodoSucursal; // Mantiene el nodo de referencia de la conexión
+
+            for (int i = 1; i <= t; i++) {
+                nodoActual = nodoActual.getpPrev(); // Avanzar al nodo anterior
+                if (nodoActual != null && nodoActual.Parada().Linea().equals(nodoSucursalEncontrada.Parada().Linea())) {
+                    Node nodoPrev = graphSucursal.addNode(nodoActual.Parada().Nombre());
+                    nodoPrev.setAttribute("ui.label", nodoActual.Parada().Nombre());
+                    nodoPrev.setAttribute("ui.size", 15);
+                    nodoPrev.setAttribute("ui.color", "green");
+                    nodoPrev.setAttribute("ui.style", "shape: circle; fill-mode: dyn-plain; fill-color: #0F0;");
+                    // Conectar con el nodo de referencia
+                    graphSucursal.addEdge("edge_" + nodoRef.getId() + "_" + nodoPrev.getId(), nodoRef, nodoPrev);
+                    nodoRef = nodoPrev; // Actualizar referencia para la siguiente conexión
+                } else {
+                    break;
+                }
+            }
+
+            // Resetear nodoActual y nodoRef para buscar hacia adelante pNext desde nodoSucursal
+            nodoActual = nodoSucursalEncontrada;
+            nodoRef = nodoSucursal;
+
+            for (int i = 1; i <= t; i++) {
+                nodoActual = nodoActual.getpNext(); // Avanzar al siguiente nodo
+                if (nodoActual != null && nodoActual.Parada().Linea().equals(nodoSucursalEncontrada.Parada().Linea())) {
+                    Node nodoSiguiente = graphSucursal.addNode(nodoActual.Parada().Nombre());
+                    nodoSiguiente.setAttribute("ui.label", nodoActual.Parada().Nombre());
+                    nodoSiguiente.setAttribute("ui.size", 15);
+                    nodoSiguiente.setAttribute("ui.color", "orange");
+                    nodoSiguiente.setAttribute("ui.style", "shape: circle; fill-mode: dyn-plain; fill-color: #FFA500;");
+                    // Conectar con el nodo de referencia
+                    graphSucursal.addEdge("edge_" + nodoRef.getId() + "_" + nodoSiguiente.getId(), nodoRef, nodoSiguiente);
+                    nodoRef = nodoSiguiente; // Actualizar referencia para la siguiente conexión
+                } else {
+                    break;
+                }
+            }
+
+            // Crear nodos hacia atrás pLPrev en línea desde nodoSucursal
+            nodoActual = nodoSucursalEncontrada;
+            nodoRef = nodoSucursal;
+
+            for (int i = 1; i <= t; i++) {
+                nodoActual = nodoActual.getpLPrev();
+                if (nodoActual != null && nodoActual.Parada().Linea().equals(nodoSucursalEncontrada.Parada().Linea())) {
+                    Node nodoLPrev = graphSucursal.addNode(nodoActual.Parada().Nombre());
+                    nodoLPrev.setAttribute("ui.label", nodoActual.Parada().Nombre());
+                    nodoLPrev.setAttribute("ui.size", 15);
+                    nodoLPrev.setAttribute("ui.color", "purple");
+                    nodoLPrev.setAttribute("ui.style", "shape: circle; fill-mode: dyn-plain; fill-color: #800080;");
+                    // Conectar con el nodo de referencia
+                    graphSucursal.addEdge("edge_" + nodoRef.getId() + "_" + nodoLPrev.getId(), nodoRef, nodoLPrev);
+                    nodoRef = nodoLPrev;
+                } else {
+                    break;
+                }
+            }
+
+            // Crear nodos hacia adelante pLNext en línea desde nodoSucursal
+            nodoActual = nodoSucursalEncontrada;
+            nodoRef = nodoSucursal;
+
+            for (int i = 1; i <= t; i++) {
+                nodoActual = nodoActual.getpLNext();
+                if (nodoActual != null && nodoActual.Parada().Linea().equals(nodoSucursalEncontrada.Parada().Linea())) {
+                    Node nodoLSiguiente = graphSucursal.addNode(nodoActual.Parada().Nombre());
+                    nodoLSiguiente.setAttribute("ui.label", nodoActual.Parada().Nombre());
+                    nodoLSiguiente.setAttribute("ui.size", 15);
+                    nodoLSiguiente.setAttribute("ui.color", "cyan");
+                    nodoLSiguiente.setAttribute("ui.style", "shape: circle; fill-mode: dyn-plain; fill-color: #00FFFF;");
+                    // Conectar con el nodo de referencia
+                    graphSucursal.addEdge("edge_" + nodoRef.getId() + "_" + nodoLSiguiente.getId(), nodoRef, nodoLSiguiente);
+                    nodoRef = nodoLSiguiente;
+                } else {
+                    break;
+                }
+            }
+
+            graphSucursal.display();
+        }
     }//GEN-LAST:event_VerCoberturaActionPerformed
 
     private void GuardarTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarTActionPerformed
