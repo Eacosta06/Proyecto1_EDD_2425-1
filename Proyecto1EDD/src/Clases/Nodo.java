@@ -66,6 +66,20 @@ public class Nodo {
     public boolean Interseccion(){
         return this.Interseccion;
     }
-    
-    
+
+    public Nodo getpLNext() {
+        return pLNext;
+    }
+
+    public void setpLNext(Nodo pLNext) {
+        this.pLNext = pLNext;
+    }
+
+    public Nodo getpLPrev() {
+        return pLPrev;
+    }
+
+    public void setpLPrev(Nodo pLPrev) {
+        this.pLPrev = pLPrev;
+    }
 }
