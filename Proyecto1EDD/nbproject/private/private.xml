@@ -3,40 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-<<<<<<< HEAD
+            <file>file:/C:/Users/maria/Documents/Estructuras%20de%20Datos/Netbeans/Proyecto1_EDD_2425-1/Proyecto1EDD/src/Clases/Nodo2.java</file>
+            <file>file:/C:/Users/maria/Documents/Estructuras%20de%20Datos/Netbeans/Proyecto1_EDD_2425-1/Proyecto1EDD/src/Clases/Grafo.java</file>
+            <file>file:/C:/Users/maria/Documents/Estructuras%20de%20Datos/Netbeans/Proyecto1_EDD_2425-1/Proyecto1EDD/src/proyecto1edd/Interfaz1.java</file>
+            <file>file:/C:/Users/maria/Documents/Estructuras%20de%20Datos/Netbeans/Proyecto1_EDD_2425-1/Proyecto1EDD/src/proyecto1edd/Anadir_linea.java</file>
             <file>file:/C:/Users/maria/Documents/Estructuras%20de%20Datos/Netbeans/Proyecto1_EDD_2425-1/Proyecto1EDD/src/Clases/Lista.java</file>
             <file>file:/C:/Users/maria/Documents/Estructuras%20de%20Datos/Netbeans/Proyecto1_EDD_2425-1/Proyecto1EDD/src/proyecto1edd/Funciones.java</file>
-            <file>file:/C:/Users/maria/Documents/Estructuras%20de%20Datos/Netbeans/Proyecto1_EDD_2425-1/Proyecto1EDD/src/Clases/Nodo2.java</file>
+            <file>file:/C:/Users/maria/Documents/Estructuras%20de%20Datos/Netbeans/Proyecto1_EDD_2425-1/Proyecto1EDD/src/proyecto1edd/InterfazCobertura.java</file>
             <file>file:/C:/Users/maria/Documents/Estructuras%20de%20Datos/Netbeans/Proyecto1_EDD_2425-1/Proyecto1EDD/src/proyecto1edd/AnadirLinea_Info.java</file>
-            <file>file:/C:/Users/maria/Documents/Estructuras%20de%20Datos/Netbeans/Proyecto1_EDD_2425-1/Proyecto1EDD/src/Clases/Grafo.java</file>
             <file>file:/C:/Users/maria/Documents/Estructuras%20de%20Datos/Netbeans/Proyecto1_EDD_2425-1/Proyecto1EDD/src/proyecto1edd/Principal.java</file>
             <file>file:/C:/Users/maria/Documents/Estructuras%20de%20Datos/Netbeans/Proyecto1_EDD_2425-1/Proyecto1EDD/src/proyecto1edd/Inicializar.java</file>
             <file>file:/C:/Users/maria/Documents/Estructuras%20de%20Datos/Netbeans/Proyecto1_EDD_2425-1/Proyecto1EDD/src/Clases/Nodo.java</file>
             <file>file:/C:/Users/maria/Documents/Estructuras%20de%20Datos/Netbeans/Proyecto1_EDD_2425-1/Proyecto1EDD/src/proyecto1edd/Proyecto1EDD.java</file>
             <file>file:/C:/Users/maria/Documents/Estructuras%20de%20Datos/Netbeans/Proyecto1_EDD_2425-1/Proyecto1EDD/src/Clases/Parada.java</file>
-            <file>file:/C:/Users/maria/Documents/Estructuras%20de%20Datos/Netbeans/Proyecto1_EDD_2425-1/Proyecto1EDD/src/proyecto1edd/Interfaz1.java</file>
-            <file>file:/C:/Users/maria/Documents/Estructuras%20de%20Datos/Netbeans/Proyecto1_EDD_2425-1/Proyecto1EDD/src/proyecto1edd/Anadir_linea.java</file>
-=======
-            <file>file:/Users/carluchocp/Documents/15vo%20trimestre/Estructura%20de%20datos/Proyecto1/proyecto-grafo/Proyecto1_EDD_2425-1/Proyecto1EDD/src/Clases/Lista.java</file>
-            <file>file:/Users/carluchocp/Documents/15vo%20trimestre/Estructura%20de%20datos/Proyecto1/proyecto-grafo/Proyecto1_EDD_2425-1/Proyecto1EDD/src/Clases/Nodo2.java</file>
-            <file>file:/Users/carluchocp/Documents/15vo%20trimestre/Estructura%20de%20datos/Proyecto1/proyecto-grafo/Proyecto1_EDD_2425-1/Proyecto1EDD/src/proyecto1edd/Principal.java</file>
-            <file>file:/Users/carluchocp/Documents/15vo%20trimestre/Estructura%20de%20datos/Proyecto1/proyecto-grafo/Proyecto1_EDD_2425-1/Proyecto1EDD/src/proyecto1edd/Inicializar.java</file>
-            <file>file:/Users/carluchocp/Documents/15vo%20trimestre/Estructura%20de%20datos/Proyecto1/proyecto-grafo/Proyecto1_EDD_2425-1/Proyecto1EDD/src/Clases/Lista2.java</file>
-=======
-            <file>file:/Users/carluchocp/Documents/15vo%20trimestre/Estructura%20de%20datos/Proyecto1/proyecto-grafo/Proyecto1_EDD_2425-1/Proyecto1EDD/src/Clases/Nodo2.java</file>
-            <file>file:/Users/carluchocp/Documents/15vo%20trimestre/Estructura%20de%20datos/Proyecto1/proyecto-grafo/Proyecto1_EDD_2425-1/Proyecto1EDD/src/proyecto1edd/Principal.java</file>
-            <file>file:/Users/carluchocp/Documents/15vo%20trimestre/Estructura%20de%20datos/Proyecto1/proyecto-grafo/Proyecto1_EDD_2425-1/Proyecto1EDD/src/proyecto1edd/Inicializar.java</file>
->>>>>>> carlo
-            <file>file:/Users/carluchocp/Documents/15vo%20trimestre/Estructura%20de%20datos/Proyecto1/proyecto-grafo/Proyecto1_EDD_2425-1/Proyecto1EDD/src/proyecto1edd/Funciones.java</file>
-            <file>file:/Users/carluchocp/Documents/15vo%20trimestre/Estructura%20de%20datos/Proyecto1/proyecto-grafo/Proyecto1_EDD_2425-1/Proyecto1EDD/src/Clases/Parada.java</file>
-            <file>file:/Users/carluchocp/Documents/15vo%20trimestre/Estructura%20de%20datos/Proyecto1/proyecto-grafo/Proyecto1_EDD_2425-1/Proyecto1EDD/src/Clases/Nodo.java</file>
-            <file>file:/Users/carluchocp/Documents/15vo%20trimestre/Estructura%20de%20datos/Proyecto1/proyecto-grafo/Proyecto1_EDD_2425-1/Proyecto1EDD/src/proyecto1edd/Interfaz1.java</file>
-<<<<<<< HEAD
->>>>>>> 72bac8d (agregue una libreria dentro del proyecto, pq no me querua agarrar local)
-=======
-            <file>file:/Users/carluchocp/Documents/15vo%20trimestre/Estructura%20de%20datos/Proyecto1/proyecto-grafo/Proyecto1_EDD_2425-1/Proyecto1EDD/src/Clases/Redes.java</file>
->>>>>>> carlo
         </group>
     </open-files>
 </project-private>

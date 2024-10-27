@@ -56,4 +56,13 @@ public class Parada {
         this.conexiones.agregar(nuevo2);
         
     }
+
+    public Grafo getConexiones() {
+        return conexiones;
+    }
+
+    public void setConexiones(Grafo conexiones) {
+        this.conexiones = conexiones;
+    }
+    
 }

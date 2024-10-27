@@ -38,7 +38,9 @@ public class AnadirLinea_Info extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setFont(new java.awt.Font("Sylfaen", 0, 14)); // NOI18N
 
+        jButton1.setFont(new java.awt.Font("Sylfaen", 0, 14)); // NOI18N
         jButton1.setText("Cerrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -46,33 +48,37 @@ public class AnadirLinea_Info extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Sylfaen", 0, 18)); // NOI18N
         jLabel1.setText("Lineamientos para Añadir Línea");
 
+        jLabel2.setFont(new java.awt.Font("Sylfaen", 0, 14)); // NOI18N
         jLabel2.setText("En Parada deberá colocar el nombre de la parada a añadir en");
 
+        jLabel3.setFont(new java.awt.Font("Sylfaen", 0, 14)); // NOI18N
         jLabel3.setText("la nueva línea.");
 
+        jLabel4.setFont(new java.awt.Font("Sylfaen", 0, 14)); // NOI18N
         jLabel4.setText("En conexión deberá colocar una parada existente que no tenga");
 
+        jLabel5.setFont(new java.awt.Font("Sylfaen", 0, 14)); // NOI18N
         jLabel5.setText("intersecciones con otras paradas. Es requisito para completar");
 
+        jLabel6.setFont(new java.awt.Font("Sylfaen", 0, 14)); // NOI18N
         jLabel6.setText("la línea más no para añadir todas las paradas.");
 
+        jLabel7.setFont(new java.awt.Font("Sylfaen", 0, 14)); // NOI18N
         jLabel7.setText("Una vez presionado el botón terminar, no habrá marcha atrás.");
 
+        jLabel8.setFont(new java.awt.Font("Sylfaen", 0, 14)); // NOI18N
         jLabel8.setText("Una parada existente puede ser añadida a la nueva línea solo");
 
+        jLabel9.setFont(new java.awt.Font("Sylfaen", 0, 14)); // NOI18N
         jLabel9.setText("si se escribe el nombre de esta correctamente.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(83, 83, 83)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -86,17 +92,21 @@ public class AnadirLinea_Info extends javax.swing.JFrame {
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(77, 77, 77)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
