@@ -40,7 +40,8 @@ public class Inicializar {
     public Nodo Buscar_Conexion(String nombre) {
         Nodo2 aux;
         Nodo parada = null;
-
+        
+        //Busca si la conexion existe
         if (!this.conexiones.esVacia()) {
             boolean encontrado = false;
             aux = this.conexiones.primero();
@@ -57,13 +58,15 @@ public class Inicializar {
         }
         return parada;
     }
-
+    
+    //Conecta dos paradas
     public void Conectar_Paradas(Nodo p1, Nodo p2, boolean existe) {
         p1.setpInterseccion(p2);
         p2.setpInterseccion(p1);
         p1.cambiarInterseccion();
         p2.cambiarInterseccion();
         if (!existe) {
+            //Si no están hechas las paradas en GraphStream, las conecta.
             Node nodo = grafo.addNode(p1.Parada().Nombre());
             nodo.setAttribute("ui.label", p1.Parada().Nombre());
             Node nodo2 = grafo.addNode(p2.Parada().Nombre());
@@ -78,6 +81,7 @@ public class Inicializar {
     }
 
     public void añadir_borde(String ant, String act) {
+        //Crea borde en GraphStream
         if (grafo.getEdge(ant + act) == null) {
             grafo.addEdge(ant + act, ant, act);
         }
@@ -103,20 +107,22 @@ public class Inicializar {
         for (String llave : llaves) {
             // Se crea  la lista lineas con el nombre de la red de metro
             Lista lineas = new Lista(llave);
-
+            
+            //Se establece un grafo vacío.
             System.setProperty("org.graphstream.ui", "swing");
             grafo = new MultiGraph(llave);
             this.anterior = null;
             this.paradaAnterior = null;
-
+            
             JsonElement l_lineas = iterable.get(llave);
             JsonArray lista_lineas = l_lineas.getAsJsonArray();
-
+            
+            //Recorre las lineas
             for (int i = 0; i < lista_lineas.size(); i++) {
                 JsonObject line = lista_lineas.get(i).getAsJsonObject();
 
                 Set<String> llaves2 = line.keySet();
-
+                
                 for (String key : llaves2) {
 
                     String linea = key;
@@ -124,14 +130,16 @@ public class Inicializar {
 
                     JsonElement l_paradas = line.get(key);
                     JsonArray lista_paradas = l_paradas.getAsJsonArray();
-
+                    
+                    //Recorre las paradas
                     for (int j = 0; j < lista_paradas.size(); j++) {
                         Nodo nParada = null;
                         if (lista_paradas.get(j).isJsonObject()) {
 
                             JsonObject Interseccion = lista_paradas.get(j).getAsJsonObject();
                             Set<String> paradas2 = Interseccion.keySet();
-
+                            
+                            //Si la parada tiene conexión
                             for (String parada1 : paradas2) {
                                 Nodo connect = Buscar_Conexion(parada1);
                                 if (connect != null) {
@@ -140,7 +148,7 @@ public class Inicializar {
                                         Llinea.agregar(connect);
                                         connect.Parada().CambiarLinea(linea);
                                     }
-
+                                    
                                 } else {
                                     Nodo connect2 = Buscar_Conexion(Interseccion.get(parada1).getAsString());
                                     if (connect2 != null) {
@@ -180,7 +188,7 @@ public class Inicializar {
                                     }
                                 }
                             }
-                            
+                            //Cuando no está conectada la parada
                             if (nParada != null && nParada.Parada() != null) {
                                 Nodo2 paradaExistente = this.lineas_metro.BuscarParada(nParada.Parada().Nombre());
                             if (paradaExistente != null) {
@@ -195,7 +203,8 @@ public class Inicializar {
                                 line_metro = new Nodo2(nParada2);
                                 this.lineas_metro.agregar(line_metro);
                             }
-
+                            
+                            //Si es la primera parada de la línea
                             if (j == 0) {
                                 line_metro = new Nodo2(nParada);
                                 this.lineas_metro.agregar(line_metro);

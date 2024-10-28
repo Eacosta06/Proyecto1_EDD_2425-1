@@ -90,6 +90,7 @@ public class AnadirLinea_Error extends javax.swing.JFrame {
         } else if (n == 4){
             this.MensajeError.setText("Conexión conectada a otra parada existente");
         }
+        this.setVisible(true);
     }
     
     /**

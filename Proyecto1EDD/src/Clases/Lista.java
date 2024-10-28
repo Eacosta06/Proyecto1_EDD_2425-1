@@ -40,6 +40,7 @@ public class Lista {
         return pFirst==null;
     }
     
+    //Agrega un nodo a la lista
     public void agregar(Nodo nuevo){
         if (!esVacia()){
             pLast.setpNext(nuevo);

@@ -5,6 +5,7 @@
 package proyecto1edd;
 
 import Clases.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,17 +18,19 @@ AnadirLinea_Info info;
 String nombre_linea;
 Lista line;
 Interfaz1 interfaz;
+
     /**
      * Creates new form Anadir_linea
      */
     public Anadir_linea(Grafo lineas_metro, Interfaz1 interfaz) {
         initComponents();
-        this.lineas_metro = lineas_metro;  
         this.info = new AnadirLinea_Info();
         this.error = new AnadirLinea_Error();
         nombre_linea = null;
         this.Anadir.setVisible(false);
         this.interfaz = interfaz;
+        this.NombreLinea.setEditable(true);
+        this.lineas_metro = lineas_metro;
     }
 
     /**
@@ -174,12 +177,14 @@ Interfaz1 interfaz;
 
     private void InformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InformacionActionPerformed
         // TODO add your handling code here:
+        // Muestra la interfaz de información
         info.setVisible(true);
     }//GEN-LAST:event_InformacionActionPerformed
 
     private void TerminadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TerminadoActionPerformed
       // TODO add your handling code here:
         if (line != null){
+            //Si linea no es null añade el pFirst a lineas_metro
             Nodo2 nLinea = new Nodo2(this.line.Primero());
             this.lineas_metro.agregar(nLinea);
             interfaz.actualizarConexiones(lineas_metro);
@@ -192,69 +197,94 @@ Interfaz1 interfaz;
     private void NombreLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreLineaActionPerformed
         // TODO add your handling code here:
         this.nombre_linea = this.NombreLinea.getText();
-        if (nombre_linea == null && nombre_linea.trim().isEmpty()){
+        //Verifica si el nombre no es nulo para mostrar el botón de añadir
+        if (nombre_linea != null && !nombre_linea.trim().isEmpty()){
+            this.Anadir.setVisible(true);
+            this.NombreLinea.setEditable(false);
+            line = new Lista(nombre_linea);
+        } else {
+            //error cuando es null
             this.error.Error(1);
             this.nombre_linea = null;
-        } else {
-            this.Anadir.setVisible(true);
         }
     }//GEN-LAST:event_NombreLineaActionPerformed
-
-    private Nodo Buscar_Parada(String nombre){
-        Nodo2 aux;
-        Nodo pAux;
-        boolean encontrado = false;
-        aux = lineas_metro.primero();
-        pAux = aux.getData();
-        while (aux != null & !encontrado){
-            while (pAux != null & !encontrado){
-                if (pAux.Parada().Nombre().trim().equals(nombre)){
-                    encontrado = true;
-                } 
-                pAux = pAux.getpNext();
-            }
-            aux = aux.getpNext();
-            pAux = aux.getData();
+    
+    public void llenarListaParadas(Lista paradasVisitadas) {
+        Nodo2 lineaActual = this.lineas_metro.primero(); // Obtener el primer nodo de lineas_metro
+        while (lineaActual != null) {
+            Nodo nodoParada = lineaActual.getData(); // Obtener el primer nodo de la lista de paradas
+            paradasVisitadas.agregar(nodoParada); 
+            lineaActual = lineaActual.getpNext(); // Ir a la siguiente línea
+          //  }
         }
-        return pAux;
+    }
+    
+    private Nodo Buscar_Parada(String nombre){
+        boolean encontrado = false; //Verificacion de encontrado
+        Lista paradas = new Lista("Paradas"); // nueva lista de paradas
+        this.llenarListaParadas(paradas);
+        Nodo aux = paradas.Primero(); //pFirst de paradas
+        while (aux != null & !encontrado){
+            //Verifica si el nombre de la parada es el buscado
+            if (aux.Parada().Nombre().trim().equals(nombre)){
+                encontrado = true;
+            } else {
+                aux = aux.getpNext();
+            }
+            
+        }
+        //retorna el nodo buscado
+        return aux;
     }
     
     private void AnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnadirActionPerformed
         // TODO add your handling code here:
-        line = new Lista(nombre_linea);
+        //Obtiene los textos de los paneles de texto
         String parada = this.infoParada.getText().trim();
         String conection = this.infoConexion.getText().trim();
+        //Verifica si parada es null
         if (parada != null & !parada.trim().isEmpty()){
-            if (conection == null & parada.trim().isEmpty()){
-                Parada p = new Parada(parada, nombre_linea);
-                Nodo Nparada = new Nodo(p);
-                this.line.agregar(Nparada);
-            } else {
+            //Verifica si conexión es null
+            if (!conection.equals("") & !parada.trim().isEmpty()){
+                //Busca la parada cuando conexion no es null
                 Nodo connect = this.Buscar_Parada(conection);
                 if (connect != null){
-                    if (connect.getpLNext() != null){
+                    //Si connect fue econtrado, verifica su intersección
+                    if (connect.getpInterseccion() == null){
+                        //Añade la parada e intersecta si conexion no está intersectado
                         Parada p = new Parada(parada, nombre_linea);
                         Nodo Nparada = new Nodo(p);
-                        connect.setpLNext(Nparada);
-                        Nparada.setpLPrev(connect);
+                        connect.setpInterseccion(Nparada);
+                        Nparada.setpInterseccion(connect);
                         this.line.agregar(Nparada);
+                        JOptionPane.showMessageDialog(this, "Parada guardada exitosamente.");
                     } else {
-                        if (connect.getpLNext().Parada().Nombre().trim().equals(parada)){
+                        if (connect.getpInterseccion().Parada().Nombre().trim().equals(parada)){
+                            //Añade la parada de intersección existente
                             Nodo Nparada = connect.getpLNext();
                             this.line.agregar(Nparada);
+                            JOptionPane.showMessageDialog(this, "Parada guardada exitosamente.");
                         } else {
+                            //Si se intenta conectar otra parada cuando ya existe una.
                             this.error.Error(4);
                         }
                     }
                 } else {
                     this.error.Error(3);
                 }
+            } else {
+                
+                //Crea la parada cuando conexion está vacío
+                Parada p = new Parada(parada, nombre_linea);
+                Nodo Nparada = new Nodo(p);
+                this.line.agregar(Nparada);
+                JOptionPane.showMessageDialog(this, "Parada guardada exitosamente.");
             }
         } else {
             this.error.Error(1);
         }
-        this.infoParada.setText(null);
-        this.infoConexion.setText(null);
+        this.infoParada.setText("");
+        this.infoConexion.setText("");
     }//GEN-LAST:event_AnadirActionPerformed
     
 

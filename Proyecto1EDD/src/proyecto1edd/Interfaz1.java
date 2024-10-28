@@ -169,7 +169,7 @@ public class Interfaz1 extends javax.swing.JFrame {
 
     }//GEN-LAST:event_SucursalNuevaActionPerformed
 
-    private void llenarListaParadas(Lista paradasVisitadas) {
+    public void llenarListaParadas(Lista paradasVisitadas) {
         Nodo2 lineaActual = this.lineas_metro.primero(); // Obtener el primer nodo de lineas_metro
         while (lineaActual != null) {
             Nodo nodoParada = lineaActual.getData(); // Obtener el primer nodo de la lista de paradas
@@ -241,7 +241,8 @@ public class Interfaz1 extends javax.swing.JFrame {
 
     private void AnadirLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnadirLineaActionPerformed
         // TODO add your handling code here:
-        Anadir_linea anadirL = new Anadir_linea(this.conexiones, this);
+        //Abre y crea la interfaz de añadir linea
+        Anadir_linea anadirL = new Anadir_linea(this.lineas_metro, this);
         anadirL.setVisible(true);
         anadirL.info.setVisible(true);
     }//GEN-LAST:event_AnadirLineaActionPerformed
@@ -251,13 +252,15 @@ public class Interfaz1 extends javax.swing.JFrame {
         Pasa los valores de grafo y lineas_metro desde
         la interfaz Principal a esta Interfaz1.
          */
+        
         this.grafo = graph;
         this.lineas_metro = lineas_metro;
         this.conexiones = conexiones;
     }
     
     public void actualizarConexiones(Grafo lineas){
-        this.conexiones = lineas;
+        //actualiza lineas_metro
+        this.lineas_metro = lineas;
     }
     
     /**
