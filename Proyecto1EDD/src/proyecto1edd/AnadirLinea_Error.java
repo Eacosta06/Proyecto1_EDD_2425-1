@@ -77,10 +77,12 @@ public class AnadirLinea_Error extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        //Esconde la interfaz
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void Error(int n){
+        //Muestra un mensaje de error dependiendo del tipo
         if (n == 1){
             this.MensajeError.setText("Valor vacío");
         } else if (n == 2){
@@ -90,6 +92,7 @@ public class AnadirLinea_Error extends javax.swing.JFrame {
         } else if (n == 4){
             this.MensajeError.setText("Conexión conectada a otra parada existente");
         }
+        //Muestra la interfaz
         this.setVisible(true);
     }
     
