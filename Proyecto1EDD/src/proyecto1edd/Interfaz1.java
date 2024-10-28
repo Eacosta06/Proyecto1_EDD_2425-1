@@ -185,7 +185,7 @@ public class Interfaz1 extends javax.swing.JFrame {
         this.lineas_metro.AnadirSucursal(datosSucursalNueva);
         
         
-        /*Lista paradasVisitadas = new Lista("Paradas Visitadas");//Lista paradasVisitadas = new Lista(); // Lista temporal para almacenar todas las paradas
+        Lista paradasVisitadas = new Lista("Paradas Visitadas");//Lista paradasVisitadas = new Lista(); // Lista temporal para almacenar todas las paradas
         boolean sucursalEncontrada = false; // Bandera para verificar si se encuentra la sucursal
 
         // Llenar la lista de paradas visitadas
@@ -198,7 +198,6 @@ public class Interfaz1 extends javax.swing.JFrame {
                 this.SucursalNueva.setText(aux.Parada().Nombre()); // Guardar el nombre en el JTextField
                 this.Consola.setText("Sucursal establecida: " + SucursalNueva.getText());
                 sucursalEncontrada = true; // Se encontró la sucursal
-                break; // Salir del bucle si se encontró
             }
             aux = aux.getpNext(); // Avanzar al siguiente nodo
         }
@@ -206,7 +205,7 @@ public class Interfaz1 extends javax.swing.JFrame {
         // Mensaje en consola si no se encuentra la parada
         if (!sucursalEncontrada) {
             this.Consola.setText("Error: La parada \"" + SucursalNueva.getText() + "\" no existe.");
-        }*/
+        }
 
     }//GEN-LAST:event_GuardarSucursalActionPerformed
 
@@ -242,8 +241,9 @@ public class Interfaz1 extends javax.swing.JFrame {
 
     private void AnadirLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnadirLineaActionPerformed
         // TODO add your handling code here:
-        Anadir_linea anadirL = new Anadir_linea(this.lineas_metro);
+        Anadir_linea anadirL = new Anadir_linea(this.conexiones, this);
         anadirL.setVisible(true);
+        anadirL.info.setVisible(true);
     }//GEN-LAST:event_AnadirLineaActionPerformed
 
     public void establecer(Graph graph, Grafo lineas_metro, Grafo conexiones) {
@@ -254,6 +254,10 @@ public class Interfaz1 extends javax.swing.JFrame {
         this.grafo = graph;
         this.lineas_metro = lineas_metro;
         this.conexiones = conexiones;
+    }
+    
+    public void actualizarConexiones(Grafo lineas){
+        this.conexiones = lineas;
     }
     
     /**

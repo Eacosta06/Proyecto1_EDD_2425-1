@@ -4,7 +4,7 @@
  */
 package proyecto1edd;
 
-import Clases.Grafo;
+import Clases.*;
 
 /**
  *
@@ -12,12 +12,22 @@ import Clases.Grafo;
  */
 public class Anadir_linea extends javax.swing.JFrame {
 Grafo lineas_metro;
+AnadirLinea_Error error;
+AnadirLinea_Info info;
+String nombre_linea;
+Lista line;
+Interfaz1 interfaz;
     /**
      * Creates new form Anadir_linea
      */
-    public Anadir_linea(Grafo lineas_metro) {
+    public Anadir_linea(Grafo lineas_metro, Interfaz1 interfaz) {
         initComponents();
-        this.lineas_metro = lineas_metro;    
+        this.lineas_metro = lineas_metro;  
+        this.info = new AnadirLinea_Info();
+        this.error = new AnadirLinea_Error();
+        nombre_linea = null;
+        this.Anadir.setVisible(false);
+        this.interfaz = interfaz;
     }
 
     /**
@@ -33,15 +43,15 @@ Grafo lineas_metro;
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        anadirparada = new javax.swing.JToggleButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        Terminado = new javax.swing.JButton();
+        Informacion = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         NombreLinea = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         infoParada = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         infoConexion = new javax.swing.JTextArea();
+        Anadir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,26 +64,19 @@ Grafo lineas_metro;
 
         jLabel3.setText("Conexión");
 
-        anadirparada.setText("Añadir Parada");
-        anadirparada.addActionListener(new java.awt.event.ActionListener() {
+        Terminado.setBackground(new java.awt.Color(204, 255, 204));
+        Terminado.setText("Terminar");
+        Terminado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                anadirparadaActionPerformed(evt);
+                TerminadoActionPerformed(evt);
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(204, 255, 204));
-        jButton1.setText("Terminar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Informacion.setBackground(new java.awt.Color(153, 204, 255));
+        Informacion.setText("Información");
+        Informacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setBackground(new java.awt.Color(153, 204, 255));
-        jButton2.setText("Información");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                InformacionActionPerformed(evt);
             }
         });
 
@@ -93,6 +96,13 @@ Grafo lineas_metro;
         infoConexion.setRows(5);
         jScrollPane2.setViewportView(infoConexion);
 
+        Anadir.setText("Añadir Parada");
+        Anadir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AnadirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,11 +112,11 @@ Grafo lineas_metro;
                 .addComponent(LabelAnadir)
                 .addGap(168, 168, 168))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(65, 65, 65)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(67, 67, 67))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -119,11 +129,11 @@ Grafo lineas_metro;
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel1)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jButton2)
-                                        .addGap(47, 47, 47)
-                                        .addComponent(anadirparada)
+                                        .addComponent(Informacion)
+                                        .addGap(46, 46, 46)
+                                        .addComponent(Anadir, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(Terminado, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -144,56 +154,118 @@ Grafo lineas_metro;
                     .addComponent(jLabel4)
                     .addComponent(NombreLinea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
                     .addComponent(jScrollPane2))
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(anadirparada)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(Terminado)
+                    .addComponent(Informacion)
+                    .addComponent(Anadir))
                 .addGap(21, 21, 21))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void InformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InformacionActionPerformed
         // TODO add your handling code here:
-        AnadirLinea_Info info = new AnadirLinea_Info();
         info.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_InformacionActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void TerminadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TerminadoActionPerformed
       // TODO add your handling code here:
+        if (line != null){
+            Nodo2 nLinea = new Nodo2(this.line.Primero());
+            this.lineas_metro.agregar(nLinea);
+            interfaz.actualizarConexiones(lineas_metro);
+        } else {
+            this.error.Error(2);
+        }
         this.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void anadirparadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirparadaActionPerformed
-        // TODO add your handling code here:
-        String datosParada = this.infoParada.getText();
-        String NombreLinea = this.NombreLinea.getText();
-        this.lineas_metro.agregarLinea(datosParada, NombreLinea);
-        System.out.println("");
-    }//GEN-LAST:event_anadirparadaActionPerformed
+    }//GEN-LAST:event_TerminadoActionPerformed
 
     private void NombreLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreLineaActionPerformed
         // TODO add your handling code here:
+        this.nombre_linea = this.NombreLinea.getText();
+        if (nombre_linea == null && nombre_linea.trim().isEmpty()){
+            this.error.Error(1);
+            this.nombre_linea = null;
+        } else {
+            this.Anadir.setVisible(true);
+        }
     }//GEN-LAST:event_NombreLineaActionPerformed
+
+    private Nodo Buscar_Parada(String nombre){
+        Nodo2 aux;
+        Nodo pAux;
+        boolean encontrado = false;
+        aux = lineas_metro.primero();
+        pAux = aux.getData();
+        while (aux != null & !encontrado){
+            while (pAux != null & !encontrado){
+                if (pAux.Parada().Nombre().trim().equals(nombre)){
+                    encontrado = true;
+                } 
+                pAux = pAux.getpNext();
+            }
+            aux = aux.getpNext();
+            pAux = aux.getData();
+        }
+        return pAux;
+    }
+    
+    private void AnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnadirActionPerformed
+        // TODO add your handling code here:
+        line = new Lista(nombre_linea);
+        String parada = this.infoParada.getText().trim();
+        String conection = this.infoConexion.getText().trim();
+        if (parada != null & !parada.trim().isEmpty()){
+            if (conection == null & parada.trim().isEmpty()){
+                Parada p = new Parada(parada, nombre_linea);
+                Nodo Nparada = new Nodo(p);
+                this.line.agregar(Nparada);
+            } else {
+                Nodo connect = this.Buscar_Parada(conection);
+                if (connect != null){
+                    if (connect.getpLNext() != null){
+                        Parada p = new Parada(parada, nombre_linea);
+                        Nodo Nparada = new Nodo(p);
+                        connect.setpLNext(Nparada);
+                        Nparada.setpLPrev(connect);
+                        this.line.agregar(Nparada);
+                    } else {
+                        if (connect.getpLNext().Parada().Nombre().trim().equals(parada)){
+                            Nodo Nparada = connect.getpLNext();
+                            this.line.agregar(Nparada);
+                        } else {
+                            this.error.Error(4);
+                        }
+                    }
+                } else {
+                    this.error.Error(3);
+                }
+            }
+        } else {
+            this.error.Error(1);
+        }
+        this.infoParada.setText(null);
+        this.infoConexion.setText(null);
+    }//GEN-LAST:event_AnadirActionPerformed
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Anadir;
+    private javax.swing.JButton Informacion;
     private javax.swing.JLabel LabelAnadir;
     private javax.swing.JTextField NombreLinea;
-    private javax.swing.JToggleButton anadirparada;
+    private javax.swing.JButton Terminado;
     private javax.swing.JTextArea infoConexion;
     private javax.swing.JTextArea infoParada;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
